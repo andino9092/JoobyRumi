@@ -23,3 +23,33 @@ export interface ProductDisplay {
 export interface ProductPage extends ProductDisplay {
   description: string;
 }
+
+export interface CartDisplay {
+    id: string;
+    checkoutUrl: string;
+    lines: {
+      edges: [
+        node: {
+          id: string;
+          quantity: Number;
+          merchandise: {
+            handle: string;
+            title: string;
+            totalInventory: string | null;
+          };
+          price: {
+            amount: string;
+          };
+          image: {
+            url: string;
+          };
+        }
+      ]
+    };
+    cost: {
+      totalAmount: {
+        amount: string;
+        currencyCode: string;
+      }
+    };
+}
