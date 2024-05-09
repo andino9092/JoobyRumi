@@ -7,6 +7,7 @@ const defaultHeaders = {
 
 const fetchURL = String(process.env.DOMAIN_NAME)
 
+// Takes query and returns the promised result. 
 export default async function getQuery(query: string){
 
     
