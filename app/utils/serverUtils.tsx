@@ -8,13 +8,12 @@ const defaultHeaders = {
 const fetchURL = String(process.env.DOMAIN_NAME)
 
 // Takes query and returns the promised result. 
-export default async function getQuery(query: string){
+export default async function getQuery(query: string, variables: any = {}){
 
-    
     const res = await fetch(fetchURL, {
         method: 'POST',
         headers: defaultHeaders,
-        body: JSON.stringify({query}),
+        body: JSON.stringify({query, variables}),
     }).then((res) => res.json())
 
     return res
