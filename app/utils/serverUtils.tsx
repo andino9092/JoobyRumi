@@ -1,11 +1,11 @@
 
 
-const defaultHeaders = {
+export const defaultHeaders = {
     'Content-Type': 'application/json',
     'X-Shopify-Storefront-Access-Token': String(process.env.ACCESS_TOKEN)
 }
 
-const fetchURL = String(process.env.DOMAIN_NAME)
+export const fetchURL = String(process.env.DOMAIN_NAME)
 
 // Takes query and returns the promised result. 
 export default async function getQuery(query: string, variables: any = {}){

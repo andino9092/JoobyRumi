@@ -2,33 +2,34 @@ import Link from "next/link";
 import getQuery from "../utils/serverUtils";
 import { ProductDisplay } from "../utils/interfaces";
 
-export default async function Testing({}) {
-  const query = `query Products {
-        products(first:100){
-          edges{
-            node{
-              title
-              priceRange{
-                minVariantPrice{
-                  amount
-                }
+const productsQuery = `query Products {
+      products(first:100){
+        edges{
+          node{
+            title
+            priceRange{
+              minVariantPrice{
+                amount
               }
-              id
-              images(first:10){
-                edges{
-                  node{
-                    url
-                    altText
-                  }
-                }
-              }
-              totalInventory
             }
+            id
+            images(first:10){
+              edges{
+                node{
+                  url
+                  altText
+                }
+              }
+            }
+            totalInventory
           }
         }
-      }`;
+      }
+    }`;
 
-  const res = await getQuery(query);
+export default async function Testing({}) {
+
+  const res = await getQuery(productsQuery);
 
   const products = res.data.products.edges;
 
@@ -37,9 +38,8 @@ export default async function Testing({}) {
       <div>
         {
         products.map(({node}:{node:ProductDisplay}, i: number) => {
-          console.log(node)
           const [a, b, c, d, nodeId] = node.id.split('/')
-          console.log(nodeId)
+          
           return <div key={i}>
             {node.title}
             {node.handle}
