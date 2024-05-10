@@ -24,32 +24,37 @@ export interface ProductPage extends ProductDisplay {
   description: string;
 }
 
-export interface CartDisplay {
+export interface CartLine {
+  id: string;
+  quantity: number;
+  merchandise: {
     id: string;
-    checkoutUrl: string;
-    lines: {
-      edges: [
-        node: {
-          id: string;
-          quantity: Number;
-          merchandise: {
-            handle: string;
-            title: string;
-            totalInventory: string | null;
-          };
-          price: {
-            amount: string;
-          };
-          image: {
-            url: string;
-          };
-        }
-      ]
+    product: {
+      handle: string;
+      title: string;
+      totalInventory: string | null;
     };
-    cost: {
-      totalAmount: {
-        amount: string;
-        currencyCode: string;
-      }
+  };
+  price: {
+    amount: string;
+  };
+  image: {
+    url: string;
+  };
+}
+
+export interface CartDisplay {
+  id: string;
+  checkoutUrl: string;
+  lines: {
+    edges: {
+      node: CartLine
+    }[];
+  };
+  cost: {
+    totalAmount: {
+      amount: string;
+      currencyCode: string;
     };
+  };
 }
