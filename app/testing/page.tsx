@@ -1,6 +1,8 @@
 import Link from "next/link";
 import getQuery from "../utils/serverUtils";
 import { ProductDisplay } from "../utils/interfaces";
+import Button from "../components/Button";
+import Tester from "./Tester";
 
 const productsQuery = `query Products {
       products(first:100){
@@ -12,7 +14,7 @@ const productsQuery = `query Products {
                 amount
               }
             }
-            id
+            handle
             images(first:10){
               edges{
                 node{
@@ -36,18 +38,9 @@ export default async function Testing({}) {
   return (
     <div className="w-screen h-screen flex flex-row justify-center bg-stone-100 text-stone-800">
       <div>
-        {
-        products.map(({node}:{node:ProductDisplay}, i: number) => {
-          const [a, b, c, d, nodeId] = node.id.split('/')
-          
-          return <div key={i}>
-            {node.title}
-            {node.handle}
-            <Link href={`/shop/products/${nodeId}`}>Link to Product</Link>
-          </div>
-        })
-      }
+
       </div>
+      <Tester></Tester>
     </div>
   );
 }

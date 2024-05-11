@@ -5,7 +5,6 @@ import Link from "next/link";
 
 // Prevent from sending multiple requests to api route
 export default function CartItem({line}: {line: CartLine}){
-    console.log(line)
 
     async function increment(nodeid: string, quantity: number, productid: string) {
         const req = await fetch(`/api/incrementLine?nodeid=${nodeid}&quantity=${quantity}&productid=${productid}`, {
