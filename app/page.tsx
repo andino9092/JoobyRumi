@@ -23,6 +23,10 @@ export default function Home({}) {
         Shop All
       </Link>
       |
+      <Link className="hover:underline text-xl" href={"/shop/jooby"}>
+        Shop Jooby
+      </Link>
+      |
       <Link className="hover:underline text-xl" href={"/tutorials"}>
         Tutorials
       </Link>{" "}
@@ -34,6 +38,11 @@ export default function Home({}) {
       <Link className="hover:underline text-xl" href={"/testing"}>
         Component Testing
       </Link>
+      |
+      <Link className="hover:underline text-xl" href={"/cart"}>
+        Cart
+      </Link>
+      
     </div>
   );
 }
