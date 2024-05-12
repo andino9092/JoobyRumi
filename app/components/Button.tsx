@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-// Props: Takes in children and async function that returns a Promise
+// Props: Takes in children and function that returns a Promise
 
 // Behavior:
 // 1. When user clicks once, it will run the onClick=
@@ -30,7 +30,7 @@ export default function Button({ children, onClick }: any) {
       return;
     }
     buttonRef.current.disabled = true;
-    await handleWrapper()
+    await handleWrapper(args)
       .then((_: any) => {
         if (buttonRef.current) {
           console.log((buttonRef.current.disabled = false));

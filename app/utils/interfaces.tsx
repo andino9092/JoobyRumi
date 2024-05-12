@@ -50,6 +50,33 @@ export interface ProductPage {
   description: string;
 }
 
+export interface JarsProps {
+  title: string;
+  handle: string;
+  priceRange: {
+    minVariantPrice: {
+      amount: string;
+    };
+  };
+  id: string;
+  options: {
+    name: string,
+    values: string[],
+  }
+  images: {
+    edges: [
+      {
+        node: {
+          url: string;
+          altText: string | null;
+        };
+      }
+    ];
+  };
+  totalInventory: number;
+  description: string;
+}
+
 export interface CartLine {
   id: string;
   quantity: number;

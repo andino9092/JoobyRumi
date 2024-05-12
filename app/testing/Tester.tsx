@@ -1,6 +1,5 @@
 'use client'
 
-import useSet from "../utils/hooks/useSet";
 
 
 // Test Client Components
@@ -10,9 +9,6 @@ import useSet from "../utils/hooks/useSet";
 export default function Tester({}){
 
 
-    const {set, has, add, remove} = useSet([1, 2, 3]);
-
-    console.log(has([1,2,3]));
 
     return (
         <div>

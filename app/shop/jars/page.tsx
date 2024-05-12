@@ -1,37 +1,45 @@
+import { JarsProps } from "@/app/utils/interfaces";
 import getQuery from "@/app/utils/serverUtils";
 
 // Jooby Jars Products
 
-const jarsQuery = `query Products {
-    products(first:100, query: "tag:jars"){
-      edges{
-        node{
-          title
-          priceRange{
-            minVariantPrice{
-              amount
-            }
-          }
-          handle
-          images(first:10){
-            edges{
-              node{
-                url
-                altText
-              }
-            }
-          }
-          totalInventory
+
+
+const jarsQuery = `query getProductByHandle($handle: String) {
+  product(handle: $handle) {
+      title
+      priceRange{
+        minVariantPrice{
+          amount
         }
       }
-    }
-  }`;
+      handle
+      images(first:10){
+        edges{
+          node{
+            url
+            altText
+          }
+        }
+      }
+      options{
+        name
+        values
+      }
+      totalInventory
+      description
+  }
+}`;
 
 export default async function Jars({}) {
-  const res = await getQuery(jarsQuery);
-  const jars = res.data.products.edges;
+  const res = await getQuery(jarsQuery, {
+    handle: 'snorlax'
+  });
 
-  console.log(jars);
+  // console.log(res);
+  const jars: JarsProps = res.data.product;
+
+  console.log(jars.priceRange);
 
   return <div>Jars</div>;
 }
