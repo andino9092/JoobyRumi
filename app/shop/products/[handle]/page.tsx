@@ -2,6 +2,7 @@ import Product from "@/app/components/Product";
 import { ProductPage } from "@/app/utils/interfaces";
 import getQuery from "@/app/utils/serverUtils";
 
+
 const query = `query getProductByHandle($handle: String) {
     product(handle: $handle) {
         title
@@ -62,3 +63,5 @@ export default async function ProductTemplate({
     </div>
   );
 }
+
+

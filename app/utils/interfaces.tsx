@@ -124,3 +124,9 @@ export interface CartDisplay {
     };
   };
 }
+
+export interface CartIdHook {
+  cartId: string,
+  onCreateCart: () => void,
+  clearCart: () => void,
+}

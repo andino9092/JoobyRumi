@@ -33,13 +33,13 @@ export default function Button({ children, onClick }: any) {
     await handleWrapper(args)
       .then((_: any) => {
         if (buttonRef.current) {
-          console.log((buttonRef.current.disabled = false));
+          buttonRef.current.disabled = false;
         }
       })
       .catch((error: string) => {
         console.log(error)
         if (buttonRef.current) {
-          console.log((buttonRef.current.disabled = false));
+          buttonRef.current.disabled = false;
         }
       });
   };

@@ -1,10 +1,13 @@
 "use client";
 
+import { useContext } from "react";
 import Button from "./Button";
+import { CartContext } from "./CartProvider";
 
 export default function Product({product}: any) {
 
-  console.log(product)
+  const {cartLines, updateCartLines, showCart, setShowCart} = useContext(CartContext)
+
 
   const testingFunction = async() => {
     const req = await fetch("/api/createCart", {
@@ -15,11 +18,28 @@ export default function Product({product}: any) {
     return req;
   }
 
+
   const addProduct = async() => {
-    const req = await fetch(`/api/createCart?variantId=${product.variants.edges[0].node.id}&cartId=${'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSFhGOTVLS0FSMEVFNERQQlozWVRRS0cy'}`, {
-      method: "POST",
-    }).then((res) => res.json());
-    console.log(req);
+
+    // If cartId exists
+    if (false){
+      const req = await fetch(`/api/createCart?merchandiseId=${product.variants.edges[0].node.id}&quantity=${1}`, {
+        method: "POST",
+      }).then((res) => res.json());
+      // Create Cookie
+      // onCreateCart(req.data.cartCreate.cart.id)
+    }
+    
+    
+    updateCartLines();
+
+    setShowCart(true);
+  }
+
+  const refreshCart = () => {
+    // Clear cookie
+    // clearCart();
+
   }
   
   return (
@@ -32,6 +52,9 @@ export default function Product({product}: any) {
       onClick={testingFunction}
       >
           Test Button
+      </Button>
+      <Button onClick={refreshCart}>
+          Refresh Cart
       </Button>
     </div>
   );
