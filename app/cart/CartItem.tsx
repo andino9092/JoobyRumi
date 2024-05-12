@@ -10,12 +10,6 @@ export default function CartItem({line}: {line: CartLine}){
     const totalInventory:number = Number(line.merchandise.product.totalInventory)
     // console.log(line)
 
-    useEffect(() => {
-        if (totalAmount <= 0) {
-            remove(line.id)
-        }
-    }, [totalAmount])
-
     async function increment(nodeid: string, quantity: number, productid: string) {
         const req = await fetch(`/api/updateLine?nodeid=${nodeid}&quantity=${quantity}&productid=${productid}&update=1`, {
             method: "POST",
@@ -31,6 +25,9 @@ export default function CartItem({line}: {line: CartLine}){
         })
         .then((res) => res.json());
         setTotalAmount(totalAmount - 1)
+        if (totalAmount <= 0) {
+            remove(line.id)
+        }
         console.log(req);
     }
 
