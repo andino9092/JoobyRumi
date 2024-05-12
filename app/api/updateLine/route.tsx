@@ -16,6 +16,7 @@ export async function POST(request: Request){
   const nodeid = queryParams.get('nodeid');
   const quantity = queryParams.get('quantity');
   const productid = queryParams.get('productid');
+  const update = queryParams.get('update');
   console.log(queryParams)
 
   const res = await fetch(fetchURL, {
@@ -27,7 +28,7 @@ export async function POST(request: Request){
             cartId: "gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSFhGOTVLS0FSMEVFNERQQlozWVRRS0cy",
             lines: [{
               id: nodeid,
-              quantity: (Number(quantity)+1),
+              quantity: (Number(quantity) + Number(update)),
               merchandiseId: productid,
             }]
           }
