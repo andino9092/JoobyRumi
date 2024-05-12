@@ -1,4 +1,33 @@
 export interface ProductDisplay {
+  node: {
+    title: string;
+    handle: string;
+    priceRange: {
+      minVariantPrice: {
+        amount: string;
+      };
+    };
+    id: string;
+    images: {
+      edges: [
+        {
+          node: {
+            url: string;
+            altText: string | null;
+          };
+        }
+      ];
+    };
+    totalInventory: number;
+    tags: string[]
+  };
+}
+
+export interface ShopAllProps {
+  products: ProductDisplay[];
+}
+
+export interface ProductPage {
   title: string;
   handle: string;
   priceRange: {
@@ -18,9 +47,33 @@ export interface ProductDisplay {
     ];
   };
   totalInventory: number;
+  description: string;
 }
 
-export interface ProductPage extends ProductDisplay {
+export interface JarsProps {
+  title: string;
+  handle: string;
+  priceRange: {
+    minVariantPrice: {
+      amount: string;
+    };
+  };
+  id: string;
+  options: {
+    name: string,
+    values: string[],
+  }
+  images: {
+    edges: [
+      {
+        node: {
+          url: string;
+          altText: string | null;
+        };
+      }
+    ];
+  };
+  totalInventory: number;
   description: string;
 }
 
@@ -48,7 +101,7 @@ export interface CartDisplay {
   checkoutUrl: string;
   lines: {
     edges: {
-      node: CartLine
+      node: CartLine;
     }[];
   };
   cost: {
