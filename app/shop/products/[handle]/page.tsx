@@ -21,6 +21,17 @@ const query = `query getProductByHandle($handle: String) {
         }
         totalInventory
         description
+        variants(first: 10) {
+          edges {
+            node {
+              id
+              image {
+                url
+              }
+              title
+            }
+          }
+        }
     }
   }`;
 
@@ -36,13 +47,18 @@ export default async function ProductTemplate({
 
   
   const product: ProductPage = res.data.product;
-  console.log(product);
+  console.log(product.variants.edges);
 
   return (
     <div>
       {product.title}
-      <img src={product.images.edges[0].node.url} width={80} height={80}></img>
-      <Product></Product>
+      {/* <img src={product.images.edges[0].node.url} width={80} height={80}></img> */}
+      {product.variants.edges.map((item) => {
+        return (
+          <img src={item.node.image.url} width={400} height={400}></img>
+        )
+      })}
+      <Product product={product}></Product>
     </div>
   );
 }

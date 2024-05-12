@@ -48,6 +48,19 @@ export interface ProductPage {
   };
   totalInventory: number;
   description: string;
+  variants: {
+    edges: [
+      {
+        node: {
+          id: string;
+          image: {
+            url: string
+          }
+          title: string
+        }
+      }
+    ]
+  }
 }
 
 export interface JarsProps {
