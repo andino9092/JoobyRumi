@@ -52,8 +52,8 @@ export default async function ProductTemplate({
   console.log(product.variants.edges);
 
   return (
-    <div className="w-screen h-screen gap-4 bg-stone-100 text-stone-800">
-      <div className="px-20 grid grid-cols-2 gap-6">
+    <div className="w-screen h-screen bg-stone-100 text-stone-800">
+      <div className="px-60 pt-5 grid grid-cols-2 gap-20">
         <div className="">
           <img className="w-full object-cover object-center rounded-2xl shadow-3xl" src={product.variants.edges[0].node.image.url} width={400} height={400}></img>
           <div className="flex mt-10">
@@ -64,7 +64,7 @@ export default async function ProductTemplate({
             })}
           </div>
         </div>
-        <div className="border border-red-500">
+        <div className="">
           <p className="font-light text-sm text-stone-500">JOOBY</p>
           <p className="font-black text-6xl">{product.title}</p>
           <p className="font-medium text-2xl text-stone-500">{formatPrice(Number(product.priceRange.minVariantPrice.amount))}</p>
