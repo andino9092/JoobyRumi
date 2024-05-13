@@ -3,7 +3,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import CartItem from "./CartItem";
 import { CartDisplay } from "../utils/interfaces";
-import { CartContext } from "../components/CartProvider";
+import { CartContext } from "./CartProvider";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function CartSidebar(props: any) {

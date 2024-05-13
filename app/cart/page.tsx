@@ -1,6 +1,6 @@
 import { CartDisplay } from "@/app/utils/interfaces";
 import getQuery from "../utils/serverUtils";
-import CartItem from "./CartItem";
+import CartItem from "../components/CartItem";
 
 const getCartQuery = `
     query getCart($id: ID!) {
