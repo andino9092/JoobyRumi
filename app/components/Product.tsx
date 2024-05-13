@@ -20,26 +20,27 @@ export default function Product({product}: any) {
 
 
   const addProduct = async() => {
+    let cartid = localStorage.getItem("cartid");
 
-    // If cartId exists
-    if (false){
+    if (cartid != null){
+      const req = await fetch(`/api/addLine?cartId=${cartid}&merchandiseId=${product.variants.edges[0].node.id}&quantity=${1}`, {
+        method: "POST",
+      }).then((res) => res.json());
+    } else {
       const req = await fetch(`/api/createCart?merchandiseId=${product.variants.edges[0].node.id}&quantity=${1}`, {
         method: "POST",
       }).then((res) => res.json());
-      // Create Cookie
-      // onCreateCart(req.data.cartCreate.cart.id)
+      localStorage.setItem("cartid", req.data.cartCreate.cart.id)
     }
-    
-    
+
     updateCartLines();
 
     setShowCart(true);
   }
 
   const refreshCart = () => {
-    // Clear cookie
-    // clearCart();
-
+    localStorage.removeItem("cartid");
+    updateCartLines();
   }
   
   return (

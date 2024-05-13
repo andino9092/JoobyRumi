@@ -11,7 +11,7 @@ const getCartQuery = `
                 edges {
                 node {
                     id
-                   quantity
+                    quantity
                     merchandise {
                     ... on ProductVariant {
                         id

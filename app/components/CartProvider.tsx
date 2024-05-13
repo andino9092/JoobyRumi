@@ -22,9 +22,10 @@ export function CartProvider({children}: any){
 
     // Call this after each cart update
     const updateCartLines = async() => {
-        // If Cookie cartId exists
-        if (false){
-            const req = await fetch(`/api/getCart?cartId=${'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSFhRRjIzMjVTVFRSN0dNODgzSENEVFJW'}`, {
+        const cartid = localStorage.getItem("cartid");
+
+        if (cartid != null){
+            const req = await fetch(`/api/getCart?cartId=${cartid}`, {
                 method: "POST",
             })
             .then((res) => res.json());
@@ -33,9 +34,9 @@ export function CartProvider({children}: any){
         }
     }
 
-    // useEffect(() => {
-    //     updateCartLines();
-    // }, [])
+    useEffect(() => {
+        updateCartLines();
+    }, [])
 
     return (
         <CartContext.Provider value={{cartLines, updateCartLines, showCart, setShowCart}}>

@@ -13,7 +13,8 @@ const removeLine = `
 export async function POST(request: Request){
   const urlParts = request.url.split('?');
   const queryParams = new URLSearchParams(urlParts.slice(1).join('?'));
-  const nodeid = queryParams.get('nodeid');
+  const cartId = queryParams.get('cartId')
+  const nodeId = queryParams.get('nodeId');
   console.log(queryParams)
 
   const res = await fetch(fetchURL, {
@@ -22,8 +23,8 @@ export async function POST(request: Request){
       body: JSON.stringify({
           query: removeLine,
           variables: { 
-            cartId: "gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSFhGOTVLS0FSMEVFNERQQlozWVRRS0cy",
-            lineIds: nodeid
+            cartId: cartId,
+            lineIds: nodeId
           }
       }),
   })

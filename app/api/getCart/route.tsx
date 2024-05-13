@@ -47,7 +47,12 @@ export async function POST(request: Request){
     const res = await fetch(fetchURL, {
         method: 'POST',
         headers: defaultHeaders,
-        body: JSON.stringify({query:getCartQuery, variables: {id: cartId}}),
+        body: JSON.stringify({
+            query: getCartQuery,
+            variables: {
+                id: cartId
+            }
+        }),
     }).then((res) => res.json())
 
 
