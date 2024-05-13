@@ -46,7 +46,10 @@ export default function Button({ children, onClick }: any) {
 
   return (
     <div>
-      <button ref={buttonRef} onClick={handleClick}>
+      <button 
+        className="flex w-full justify-center text-white bg-pink-400 border-0 py-2 mt-5 focus:outline-none hover:bg-pink-600 rounded-full"
+        ref={buttonRef}
+        onClick={handleClick}>
         {children}
       </button>
     </div>

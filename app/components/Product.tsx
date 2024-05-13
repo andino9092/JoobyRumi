@@ -45,18 +45,19 @@ export default function Product({product}: any) {
   
   return (
     <div>
-      <Button onClick={addProduct}>
+      <Button 
+        onClick={addProduct}>
         Add to Cart
       </Button>
 
-      <Button
+      {/* <Button
       onClick={testingFunction}
       >
           Test Button
       </Button>
       <Button onClick={refreshCart}>
           Refresh Cart
-      </Button>
+      </Button> */}
     </div>
   );
 }
