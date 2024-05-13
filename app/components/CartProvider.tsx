@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from "react"
 import { CartDisplay } from "../utils/interfaces";
-import CartSidebar from "../cart/CartSidebar";
+import CartSidebar from "./CartSidebar";
 
 interface CartContextType{
     cartLines: any,
