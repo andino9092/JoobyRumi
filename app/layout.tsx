@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className + " relative"}>
+      <body className={inter.className + " relative overflow-x-hidden"}>
         <CartProvider>
           <Navbar></Navbar>
           {children}
