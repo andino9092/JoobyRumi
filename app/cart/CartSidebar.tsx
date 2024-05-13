@@ -1,40 +1,66 @@
-'use client'
+"use client";
 
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react";
 import CartItem from "./CartItem";
 import { CartDisplay } from "../utils/interfaces";
 import { CartContext } from "../components/CartProvider";
+import { motion, AnimatePresence } from "framer-motion";
 
+export default function CartSidebar(props: any) {
+  const { cartLines, updateCartLines, showCart, setShowCart } =
+    useContext(CartContext);
 
-export default function CartSidebar(props: any){
-
-
-    const {cartLines, updateCartLines, showCart, setShowCart} = useContext(CartContext)
-
-    const cartContainerRef = useRef<HTMLDivElement>(null);
-    const cartRef = useRef<HTMLDivElement>(null);
-
-        
-    const onClick = (e: any) => {
-        if (e.target.id == 'cartContainer' && showCart){
-            setShowCart(false);
-        }
+  const onClick = (e: any) => {
+    if (e.target.id == "cartContainer" && showCart) {
+      setShowCart(false);
     }
-    
+  };
 
-    return (
-
-        <div id='cartContainer' onClick={onClick} ref={cartContainerRef} className={`h-screen absolute transition-all overflow-x-hidden bg-stone-600 bg-opacity-30 ease-in duration-200 right-0 top-0 ${showCart ? 'z-10': '-z-10'} w-screen`}>
-
-            <div id='cart' ref={cartRef} className={`${showCart ? 'w-[500px]' : 'w-0'} text-stone-800 bg-stone-100 transition-all h-screen absolute right-0`}>
-                {props.cartLines && props.cartLines.lines.edges.map((item: any) => {
-                    // console.log(item.node);
-                    return (
-                        <CartItem key={item.node.id} line={item.node}/>
-                    )
+  return (
+    <>
+      <AnimatePresence initial={false}>
+        {showCart && (
+          <motion.div
+            id="cartContainer"
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              type: "tween",
+              duration: 0.2,
+            }}
+            onClick={onClick}
+            className={`h-screen absolute overflow-x-hidden bg-stone-600 bg-opacity-30  right-0 top-0 w-screen`}
+          >
+            <motion.div
+              initial={{
+                width: "0px",
+              }}
+              animate={{
+                width: "500px",
+              }}
+              exit={{
+                width: "0px",
+              }}
+              transition={{ type: "tween", duration: 0.2 }}
+              id="cart"
+              className={` text-stone-800 bg-stone-100 h-screen absolute right-0`}
+            >
+              {props.cartLines &&
+                props.cartLines.lines.edges.map((item: any) => {
+                  // console.log(item.node);
+                  return <CartItem key={item.node.id} line={item.node} />;
                 })}
-
-            </div>
-        </div>
-    )
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 }
