@@ -49,7 +49,7 @@ export default async function ProductTemplate({
 
   
   const product: ProductPage = res.data.product;
-  console.log(product.variants.edges);
+  // console.log(product.variants.edges);
 
   return (
     <div className="w-screen h-screen bg-stone-100 text-stone-800">
@@ -57,9 +57,9 @@ export default async function ProductTemplate({
         <div className="">
           <img className="w-full object-cover object-center rounded-2xl shadow-3xl" src={product.variants.edges[0].node.image.url} width={400} height={400}></img>
           <div className="flex mt-10">
-            {product.variants.edges.map((item) => {
+            {product.variants.edges.map((item, i) => {
               return (
-                  <img className="rounded-lg " src={item.node.image.url} width={100} height={100}></img>
+                  <img className="rounded-lg " key={i} src={item.node.image.url} width={100} height={100}></img>
               )
             })}
           </div>

@@ -11,9 +11,16 @@ interface NavBarItemProps {
 
 function NavBarItem({ children }: NavBarItemProps) {
   return (
-    <div className="text-lg hover:cursor-pointer hover:bg-pink-200 px-10 h-12 flex items-center hover:text-stone-50 transition-all text-stone-600 font-semibold">
+    <motion.div
+      // whileHover={{
+      //   backgroundColor: "rgb(247 232 234)",
+      //   color: "#FFB6C1",
+      // }}
+      // transition-all hover:underline hover:underline-offset-4
+      className="hover:bg-joobyLightPink hover:text-joobyDarkPink transition-all text-base text-center justify-center w-full px-8 bg-joobyWhite text-joobyDark h-12 flex items-center "
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -24,46 +31,36 @@ interface ShopSectionsProps {
   setSectionHover: (e: any) => void;
 }
 
-function ShopSections({ hover, setHover, setSectionHover, sectionHover }: ShopSectionsProps) {
-  
+function ShopSections({
+  hover,
+  setHover,
+  setSectionHover,
+  sectionHover,
+}: ShopSectionsProps) {
   const sectionsVariants = {
-    hidden : {
-      height: "0px",
-    },
+    hidden: {},
     visible: {
-      height: "48px",
-      y: '-4px',
-      boxShadow: '2px 1px 14px 1px rgba(0, 0, 0, 0.1)',
-      transition: { 
-        type: 'tween',
-        when: 'beforeChildren',
-      }
+      boxShadow: "2px 1px 14px 1px rgba(0, 0, 0, 0.1)",
     },
-    exit: {
-      height: "0px",
-      transition: {
-        type: 'tween',
-        when: 'afterChildren',
-      }
-    }
-  }
+    exit: {},
+  };
 
   const itemsVariants = {
-    hidden : {
+    hidden: {
       opacity: 0,
     },
     visible: {
       opacity: 1,
-      y: 0
+      y: 0,
     },
     exit: {
       opacity: 0,
-    }
-  }
-  
+    },
+  };
+
   return (
     <>
-      <AnimatePresence initial={false}>
+      <AnimatePresence>
         {(hover || sectionHover) && (
           <motion.div
             id="sections"
@@ -74,33 +71,29 @@ function ShopSections({ hover, setHover, setSectionHover, sectionHover }: ShopSe
             }}
             onMouseLeave={() => {
               setSectionHover((prev: any) => {
-                
-                return false;
+                if (!hover) {
+                  return false;
+                }
               });
             }}
-            initial='hidden'
-            animate='visible'
-            exit='exit'
+            animate="visible"
             variants={sectionsVariants}
-            className="absolute w-screen z-10 bg-stone-100 justify-center flex items-center  shadow-stone-300"
+            className="w-[140px] absolute z-10 bg-joobyWhite justify-center flex items-center shadow-joobyDark"
           >
             <motion.div
-            variants={itemsVariants}
-            className="relative flex justify-center items-center">
-              <Link href={'/shop/starter'}>
-                <NavBarItem>
-                  KITS
-                </NavBarItem>
+              variants={itemsVariants}
+              className="relative w-auto flex flex-col justify-center items-center"
+            >
+              <Link className="w-full" href={"/shop/starter"}>
+                <NavBarItem>Starter Kit</NavBarItem>
               </Link>
-              <Link href={'/shop/jars'}>
-                <NavBarItem>
-                  JARS
-                </NavBarItem>
+              <Link className="w-full" href={"/shop/jars"}>
+                <NavBarItem>Jars</NavBarItem>
               </Link>
-
+              <Link className="w-full" href={"/shop/findings"}>
+                <NavBarItem>Findings</NavBarItem>
+              </Link>
             </motion.div>
-
-
           </motion.div>
         )}
       </AnimatePresence>
@@ -130,7 +123,8 @@ function NavBanner({ showBanner, setShowBanner }: NavBarProps) {
             height: "0px",
             opacity: 0,
           }}
-          className="w-screen text-stone-700 font-semibold bg-pink-200 flex justify-center text-center items-center py-1 font-sans absolute"
+          onClick={() => setShowBanner(false)}
+          className="w-screen text-joobyDark hover:cursor-pointer font-semibold bg-joobyDarkPink flex justify-center text-center items-center py-1 font-sans absolute"
         >
           Free shipping for orders over __ !!
           <div className="absolute pr-6 right-0 flex justify-center items-center">
@@ -138,9 +132,8 @@ function NavBanner({ showBanner, setShowBanner }: NavBarProps) {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="black"
-              className="w-4 h-4 hover:cursor-pointer "
+              strokeWidth={2}
+              className="w-4 h-4 hover:cursor-pointer stroke-joobyDark"
               onClick={() => {
                 setShowBanner(false);
               }}
@@ -168,7 +161,6 @@ export default function Navbar({}) {
 
   const onMouseOver = (e: any) => {
     setHover(true);
-    
   };
 
   const onMouseLeave = (e: any) => {
@@ -179,30 +171,66 @@ export default function Navbar({}) {
 
   return (
     <>
-      <div className="relative top-0 w-screen h-fit bg-stone-100 overflow-x-hidden">
-        <h1 className="text-3xl relative font-semibold font-serif text-pink-300 w-screen text-center pt-4">
-          <Link href={'/'}>
-            <img className="rounded-full translate-x-4 absolute w-[50px] h-[50px]" src='/icon.ico'></img>
-          </Link>
-          Jooby Rumi
-        </h1>
-        <div className="flex flex-row justify-center items-center gap-3 w-screen text-xl border-b-2 relative  h-fit">
+      <div className="w-screen h-auto pt-4 font-DMSerifDisplay bg-joobyWhite overflow-x-hidden">
+        <h1 className="text-3xl text-joobyDark w-screen text-center pt-4 font-bold">
           <Link href={"/"}>
-            <NavBarItem>HOME</NavBarItem>
+            <img
+              className="rounded-full translate-x-4 absolute w-[50px] h-[50px]"
+              src="/icon.ico"
+            ></img>
           </Link>
-          <Link href={'/tutorials'}>
-            <NavBarItem>TUTORIALS</NavBarItem>
+          <Link href={"/"} className="hover:cursor-pointer hover:text-stone-700">
+            JoobyRumi
           </Link>
-          <div id="shop" onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
-            <Link href={'/shop/store'}>
-              <NavBarItem>SHOP</NavBarItem>
-            </Link>
+        </h1>
+        <div className="flex flex-row justify-center items-center w-screen text-xl pt-2 border-b-2 h-auto">
+          <Link href={"/"}>
+            <NavBarItem>Home</NavBarItem>
+          </Link>
+          <Link href={"/tutorials"}>
+            <NavBarItem>Tutorials</NavBarItem>
+          </Link>
+          <div>
+            <div
+              id="shop"
+              className="w-[140px] relative"
+              onMouseOver={onMouseOver}
+              onMouseLeave={onMouseLeave}
+            >
+              <Link href={"/shop/store"}>
+                <NavBarItem>
+                  <div>
+                    Shop
+
+                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    className={`w-5 h-5 absolute right-3 ${(hover ||sectionHover) && 'rotate-180'} duration-200 transition-all stroke-joobyDark`}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </NavBarItem>
+              </Link>
+            </div>
+            <ShopSections
+              sectionHover={sectionHover}
+              setSectionHover={setSectionHover}
+              hover={hover}
+              setHover={setHover}
+            ></ShopSections>
           </div>
-          <Link href={'/shop/jooby'}>
-            <NavBarItem>JOOBY</NavBarItem>
+          <Link href={"/shop/jooby"}>
+            <NavBarItem>Jooby</NavBarItem>
           </Link>
           <Link href={"/contact"}>
-            <NavBarItem>CONTACT</NavBarItem>
+            <NavBarItem>Contact</NavBarItem>
           </Link>
 
           <div className="flex flex-row absolute right-0 pr-8">
@@ -215,7 +243,7 @@ export default function Navbar({}) {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6 stroke-stone-600 stroke-2 hover:cursor-pointer"
+              className="w-6 h-6 stroke-joobyDark stroke-2 hover:cursor-pointer"
               onClick={() => {
                 setShowCart(true);
               }}
@@ -229,12 +257,6 @@ export default function Navbar({}) {
           </div>
         </div>
       </div>
-      <ShopSections
-      sectionHover={sectionHover}
-        setSectionHover={setSectionHover}
-        hover={hover}
-        setHover={setHover}
-      ></ShopSections>
       <NavBanner
         setShowBanner={setShowBanner}
         showBanner={showBanner}
