@@ -13,6 +13,7 @@ const updateAddOne = `
 export async function POST(request: Request){
   const urlParts = request.url.split('?');
   const queryParams = new URLSearchParams(urlParts.slice(1).join('?'));
+  const cartid = queryParams.get('cartid')
   const nodeid = queryParams.get('nodeid');
   const quantity = queryParams.get('quantity');
   const productid = queryParams.get('productid');
@@ -25,7 +26,7 @@ export async function POST(request: Request){
       body: JSON.stringify({
           query: updateAddOne,
           variables: { 
-            cartId: "gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSFhGOTVLS0FSMEVFNERQQlozWVRRS0cy",
+            cartId: cartid,
             lines: [{
               id: nodeid,
               quantity: (Number(quantity) + Number(update)),

@@ -35,6 +35,10 @@ export default async function Testing({}) {
 
   const products = res.data.products.edges;
 
+  if (typeof window == 'undefined'){
+    console.log('server component')
+  }
+
   return (
     <div className="w-screen h-screen flex flex-row justify-center bg-stone-100 text-stone-800">
       <div>
