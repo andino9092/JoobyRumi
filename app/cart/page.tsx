@@ -1,6 +1,6 @@
 import { CartDisplay } from "@/app/utils/interfaces";
 import getQuery from "../utils/serverUtils";
-import CartItem from "./CartItem";
+import CartItem from "../components/CartItem";
 
 const getCartQuery = `
     query getCart($id: ID!) {
@@ -39,10 +39,12 @@ const getCartQuery = `
             }
             }
         }
-    `;
+    ` ;
 
 export default async function Cart({}){
 
+    //  I think this request is being cached since its being run from a server component
+    // Thats why the quantity is 0
     const req = await getQuery(getCartQuery, { id: "gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSFhGOTVLS0FSMEVFNERQQlozWVRRS0cy" })
     const cart: CartDisplay = req.data.cart
 

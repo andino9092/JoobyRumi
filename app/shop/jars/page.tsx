@@ -39,7 +39,7 @@ export default async function Jars({}) {
   // console.log(res);
   const jars: JarsProps = res.data.product;
 
-  console.log(jars.priceRange);
+  console.log(jars);
 
   return <div>Jars</div>;
 }
