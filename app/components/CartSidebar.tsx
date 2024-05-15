@@ -36,7 +36,7 @@ export default function CartSidebar(props: any) {
               duration: 0.2,
             }}
             onClick={onClick}
-            className={`h-screen absolute overflow-x-hidden bg-stone-600 bg-opacity-30  right-0 top-0 w-screen`}
+            className={`h-screen absolute overflow-x-hidden z-50 bg-stone-600 bg-opacity-30  right-0 top-0 w-screen`}
           >
             <motion.div
               initial={{

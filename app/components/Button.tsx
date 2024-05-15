@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 
 // Props: Takes in children and function that returns a Promise
 
@@ -9,21 +9,26 @@ import { useRef, useState } from "react";
 // 2. Button is disabled while effect is being run
 // Note: We shouldn't let user spam click. Display a loading animation while effect is loading
 
-export default function Button({ children, onClick }: any) {
+interface ButtonProps{
+  children?: ReactNode,
+  onClick?: (...args: any) => any,
+  className?: string,
+}
+
+export default function Button({ children, onClick, className}: any) {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleWrapper = async (...args: any) => {
     return new Promise((resolve, reject) => {
-        let res;
-        try {
-            res = onClick(...args)
-        }
-        catch{
-            reject('Error with event handler')
-        }
-        resolve(res);
-    })
-  }
+      let res;
+      try {
+        res = onClick(...args);
+      } catch {
+        reject("Error with event handler");
+      }
+      resolve(res);
+    });
+  };
 
   const handleClick = async (...args: any) => {
     if (!buttonRef.current) {
@@ -37,7 +42,7 @@ export default function Button({ children, onClick }: any) {
         }
       })
       .catch((error: string) => {
-        console.log(error)
+        console.log(error);
         if (buttonRef.current) {
           buttonRef.current.disabled = false;
         }
@@ -46,10 +51,11 @@ export default function Button({ children, onClick }: any) {
 
   return (
     <div>
-      <button 
-        className="flex w-full justify-center text-lg text-white bg-pink-400 border-0 py-3 focus:outline-none hover:bg-pink-600 rounded-full"
+      <button
+        className={`flex ${className} justify-center text-white bg-[#FFA5B3] border-0 py-3 mt-5 focus:outline-none hover:bg-pink-600 rounded-full`}
         ref={buttonRef}
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         {children}
       </button>
     </div>

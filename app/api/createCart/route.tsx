@@ -61,6 +61,6 @@ export async function POST(request: Request){
         }),
     })
     const { data } = await res.json()
-    console.log(data);
+    // console.log(data);
     return Response.json({ data });
 }

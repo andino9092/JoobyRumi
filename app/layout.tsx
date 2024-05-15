@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import CartSidebar from "./components/CartSidebar";
 import { CartProvider } from "./components/CartProvider";
 import Navbar from "./components/Navbar";
-import Head from "next/head";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,15 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
       <link rel="icon" href="/favicon.ico" sizes="any" />
 
-      <body className={inter.className + " relative overflow-x-hidden"}>
+      <body className={inter.className + " relative overflow-x-hidden bg-joobyWhite"}>
         <CartProvider>
           <Navbar></Navbar>
           {children}
         </CartProvider>
-        <div className=""></div>
+        <Footer></Footer>
       </body>
     </html>
   );
