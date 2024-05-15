@@ -13,6 +13,7 @@ const getCartQuery = `
                     merchandise {
                     ... on ProductVariant {
                         id
+                        title
                         product {
                         handle
                         title

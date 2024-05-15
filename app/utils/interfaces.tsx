@@ -27,6 +27,14 @@ export interface ShopAllProps {
   products: ProductDisplay[];
 }
 
+export interface ProductNode {
+  id: string;
+  image: {
+    url: string
+  }
+  title: string
+}
+
 export interface ProductPage {
   title: string;
   handle: string;
@@ -53,8 +61,12 @@ export interface ProductPage {
       {
         node: {
           id: string;
+          price: {
+            amount: string;
+          }
           image: {
-            url: string
+            url: string;
+            altText: string | null;
           }
           title: string
         }
@@ -95,6 +107,7 @@ export interface CartLine {
   quantity: number;
   merchandise: {
     id: string;
+    title: string;
     product: {
       handle: string;
       title: string;
