@@ -12,10 +12,6 @@ export default function Product({prodict, product, hasVariants}: any) {
     "full_image": prodict[product.variants.edges[0].node.title].productImages[0]
   })
 
-  function ImageRotation({edges} : {edges: any}) {
-
-  }
-
   const addProduct = async(variantId: string) => {
     let cartid = localStorage.getItem("cartid");
 
@@ -36,11 +32,6 @@ export default function Product({prodict, product, hasVariants}: any) {
     setShowCart(true);
   }
 
-  const refreshCart = () => {
-    localStorage.removeItem("cartid");
-    updateCartLines();
-  }
-  
   return (
     <div>
       <div className="px-[70px] pt-12 grid grid-cols-12 gap-[30px]">

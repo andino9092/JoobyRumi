@@ -1,10 +1,8 @@
-import { JarsProps, ProductPage } from "@/app/utils/interfaces";
+import { ProductPage } from "@/app/utils/interfaces";
 import getQuery from "@/app/utils/serverUtils";
 import Product from "@/app/components/Product";
 
-// Jooby Jars Products
-
-const jarsQuery = `query getProductByHandle($handle: String) {
+const JoobyQuery = `query getProductByHandle($handle: String) {
   product(handle: $handle) {
       title
       priceRange{
@@ -95,20 +93,17 @@ export async function getImageDict(product: ProductPage) {
   return prodict
 }
 
-export default async function Jars({}) {
+export default async function JoobyProduct({params} : {params: {handle: string}}) {
 
-  const res = await getQuery(jarsQuery, {
-    handle: 'jar'
+  const res = await getQuery(JoobyQuery, {
+    handle: params.handle
   });
+  const jooby: ProductPage = res.data.product
+  const image_dict: ImageDict = await getImageDict(jooby)
 
-  // FIXME: fix the type for jars here
-  const jars: ProductPage = res.data.product;
-  console.log(jars)
-  const prodict: ImageDict = await getImageDict(jars)
-
-  return (
+  return(
     <div className="w-screen h-screen bg-stone-100 text-stone-800">
-      <Product className="border-2 border-red-500" prodict={prodict} product={jars} hasVariants={true}></Product>
+      <Product className="border-2 border-red-500" prodict={image_dict} product={jooby} hasVariants={false}></Product>
     </div>
-  );
+  )
 }

@@ -42,7 +42,7 @@ export default function CartItem({line}: {line: CartLine}){
 
     return (
         <div>
-            <Link href={`/${line.merchandise.product.handle}`}>{line.merchandise.product.title} ({line.merchandise.title})</Link>
+            <Link href={`/shop/products/${line.merchandise.product.handle}`}>{line.merchandise.product.title} ({line.merchandise.title})</Link>
             <p>{line.quantity}</p>
             <button onClick={() => increment(line.id, line.quantity, line.merchandise.id)} disabled={line.quantity >= totalInventory}>
                 <span>+</span>
