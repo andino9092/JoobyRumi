@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ProductDisplay {
   node: {
     title: string;
@@ -142,4 +144,12 @@ export interface CartIdHook {
   cartId: string,
   onCreateCart: () => void,
   clearCart: () => void,
+}
+
+export interface StaggeredCarouselProps{
+  heading : string,
+  children : {
+   href: string,
+   label: ReactNode | string, 
+  }[]
 }

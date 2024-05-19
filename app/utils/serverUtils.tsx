@@ -8,9 +8,13 @@ export const defaultHeaders = {
 export const fetchURL = String(process.env.DOMAIN_NAME)
 
 // Takes query and returns the promised result. 
+
+// Revalidates cached data every hour
 export default async function getQuery(query: string, variables: any = {}){
 
     const res = await fetch(fetchURL, {
+      
+        next: { revalidate: 3600 },
         method: 'POST',
         headers: defaultHeaders,
         body: JSON.stringify({query, variables}),

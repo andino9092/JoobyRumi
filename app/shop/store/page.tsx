@@ -1,6 +1,7 @@
 // All products
 
 import ShopAll from "@/app/components/ShopAll";
+import ShoppingList from "@/app/components/ShoppingList";
 import { ProductDisplay } from "@/app/utils/interfaces";
 import getQuery from "@/app/utils/serverUtils";
 import Link from "next/link";
@@ -32,15 +33,17 @@ export default async function Store({}) {
         }
       }`;
 
-
   const res = await getQuery(productsQuery);
 
   const products = res.data.products.edges;
 
   return (
-    <div className="w-screen h-screen flex flex-row flex-wrap gap-2 items-center justify-center bg-stone-100 text-stone-800">
-      <h1 className="text-xl font-bold">Items: </h1>
-      <ShopAll products={products}></ShopAll>
+    <div className="flex flex-col font-DMSerifDisplay text-joobyDark">
+      <h1 className="ml-48 text-2xl mr-48 pt-8">Shop All</h1>
+      <div className="flex gap-12 justify-center">
+        <ShoppingList items={products}></ShoppingList>
+
+      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import Image from "next/image"
 
 
 interface LoadingProps{
@@ -12,7 +13,7 @@ export default function Loading({className, width, height}: LoadingProps){
     return (
         <div>
 
-            <img src='/loading.jpg' className={className}></img>
+            <img alt='loadingImg' src='/loading.jpg' className={className}></img>
 
         </div>
     )

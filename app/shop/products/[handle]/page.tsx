@@ -62,37 +62,17 @@ interface ProductVariant {
   };
 }
 
-export async function getImageDict(product: ProductPage) {
-  interface ImageDict {
-    [key: string]: {
-      price: number,
-      variantId: string;
-      productImages: string[];
-    };
-  }
-  let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
-    const key: string | null = variant.node.title;
-    if (key) {
-        acc[key] = acc[key] || {
-          price: variant.node.price.amount,
-          variantId: variant.node.id,
-          productImages: []
-        };
-    }
-    return acc;
-  }, {});
-  product.images.edges.reduce((acc: ImageDict, variant: Variant) => {
-      const key: string | null = variant.node.altText;
-      if (key) {
-        acc[key].productImages.push(variant.node.url);
-      } else {
-        acc["Default Title"].productImages.push(variant.node.url);
-      }
-      return acc;
-  }, prodict);
 
-  return prodict
+interface ImageDict {
+  [key: string]: {
+    price: number,
+    variantId: string;
+    productImages: string[];
+  };
 }
+
+// Changed to sync function because doesn't handle any async promises
+
 
 export default async function ProductTemplate({
   params,
@@ -100,12 +80,38 @@ export default async function ProductTemplate({
   params: { handle: string };
 }) {
 
+  function getImageDict(product: ProductPage): any {
+    let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
+      const key: string | null = variant.node.title;
+      if (key) {
+          acc[key] = acc[key] || {
+            price: variant.node.price.amount,
+            variantId: variant.node.id,
+            productImages: []
+          };
+      }
+      return acc;
+    }, {});
+    product.images.edges.reduce((acc: ImageDict, variant: Variant) => {
+        const key: string | null = variant.node.altText;
+        if (key) {
+          acc[key].productImages.push(variant.node.url);
+        } else {
+          acc["Default Title"].productImages.push(variant.node.url);
+        }
+        return acc;
+    }, prodict);
+  
+    return prodict
+  }
   const res = await getQuery(query, {
     handle: params.handle,
   });
 
+
+
   const product: ProductPage = res.data.product;
-  const prodict: any = await getImageDict(product)
+  const prodict: any = getImageDict(product)
 
   let hasVariants = true
   if (Object.keys(prodict).length === 1 && Object.keys(prodict)[0] === "Default Title") {
