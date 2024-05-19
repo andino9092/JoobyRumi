@@ -12,6 +12,7 @@ import CartItem from "./CartItem";
 import { CartDisplay } from "../utils/interfaces";
 import { CartContext } from "./CartProvider";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const getSnapshot = () => {
   return localStorage.getItem("cartid");
@@ -29,7 +30,6 @@ const serverSide = () => {
 export default function CartSidebar(props: any) {
   const { cartLines, updateCartLines, showCart, setShowCart } =
     useContext(CartContext);
-
 
   useLayoutEffect(() => {
     const original = document.body.style.overflowY;
@@ -105,6 +105,9 @@ export default function CartSidebar(props: any) {
                     />
                   );
                 })}
+                <Link href={props.cartLines.checkoutUrl}>
+                  CHECKOUT
+                </Link>
             </motion.div>
           </motion.div>
         )}

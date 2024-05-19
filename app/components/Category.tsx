@@ -19,10 +19,11 @@ export default function Category({
 }: CategoryProps) {
   const [hover, setHover] = useState<boolean>(false);
 
+
   return (
     <div
       className="w-auto rounded-lg overflow-hidden hover:cursor-pointer shadow-[3px_2px_30px_-20px_rgba(0,0,0,0.3)]"
-      onMouseEnter={() => setHover(true)}
+      onMouseEnter={() => {console.log('entered'); setHover(true)}}
       onMouseLeave={() => setHover(false)}
     >
       <div className="relative">
@@ -31,7 +32,6 @@ export default function Category({
         )}
         {imgSrc && (
           <Image
-          loading="eager"
           height={370}
           width={370}
             alt="itemImg"
@@ -41,7 +41,7 @@ export default function Category({
         )}
         <AnimatePresence>
           {/* Can wrap AnimatePresence and use with hover state if whileHover isn't enough */}
-            {hover && hoverSrc && (
+            {hover &&  (
               <div className="absolute overflow-hidden top-0">
                 <motion.div
   
@@ -59,35 +59,7 @@ export default function Category({
                   
                 >
                   <Image
-                    src={hoverSrc}
-                    loading="eager"
-                    width={370}
-                    height={370}
-                    className="w-[370px] h-[370px] object-cover "
-                    alt="hoverImg"
-                  ></Image>
-                </motion.div>
-              </div>
-            )}
-            {hover && !hoverSrc && (
-              <div className="absolute overflow-hidden top-0">
-                <motion.div
-                  initial={{
-                    scale: 1,
-                    opacity: 0,
-                  }}
-                  whileHover={{
-                    scale: 1.1,
-                    opacity: 1,
-                  }}
-                  exit={{
-                    scale: 1,
-                    opacity: 0,
-                  }}
-                  
-                >
-                  <Image
-                    src={'/loading_2.jpg'}
+                    src={hoverSrc || '/loading_2.jpg'}
                     loading="eager"
                     width={370}
                     height={370}

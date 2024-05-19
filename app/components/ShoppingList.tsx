@@ -51,9 +51,9 @@ export default function ShoppingList({ items }: ShoppingListProps) {
             })
           }
           return (
-            <Link href={`/shop/products/${item.node.handle}`}>
+            <Link key={i} href={`/shop/products/${item.node.handle}`}>
               <motion.div
-                key={i}
+                
                 variants={children}
               >
                 
