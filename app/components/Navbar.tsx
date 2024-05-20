@@ -1,10 +1,11 @@
 "use client";
 
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartProvider";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { CartContextType, ContextCountry } from "../utils/interfaces";
 
 interface NavBarProps {
   showBanner: boolean;
@@ -149,7 +150,7 @@ interface NavDropDownProps {
   children?: ReactNode;
   label?: string;
   width?: number; // in pixels
-  href: string,
+  href: string;
 }
 
 // Label is name of navbar item
@@ -171,17 +172,10 @@ function NavDropDown({ children, label, width, href }: NavDropDownProps) {
   return (
     <>
       <div style={{ width: `${width}px` }}>
-        <div
-          id="shop"
-          className="w-max"
-          
-        >
+        <div id="shop" className="w-max">
           <div className="w-full flex flex-row justify-center">
             <Link href={href}>
-              <NavBarItem
-                onMouseOver={onMouseOver}
-                onMouseLeave={onMouseLeave}
-              >
+              <NavBarItem onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
                 <h1>{label}</h1>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -215,9 +209,77 @@ function NavDropDown({ children, label, width, href }: NavDropDownProps) {
   );
 }
 
-export default function Navbar({}) {
-  const { cartLines, updateCartLines, showCart, setShowCart } =
-    useContext(CartContext);
+interface CurrencyDropdownProps{
+}
+
+function CurrencyDropdown({}){
+  const {
+    currencyList,
+    currCurrency,
+    setCurrency,
+  } = useContext<CartContextType>(CartContext);
+;
+  
+  const [showDrop, setShowDrop] = useState<boolean>(false);
+  // console.log(currencyList);
+
+
+  useEffect(() => {
+    if (typeof window != undefined){
+
+    }
+
+    return () => {
+      if (typeof window != undefined){
+
+      }
+    }
+  }, [])
+
+  return (
+    <div>
+      <div onClick={() => {setShowDrop(prev => !prev)}} className="absolute right-10 top-5 text-lg font-sans font-thin  flex justify-center">
+        {currCurrency.name} | {currCurrency.currency.symbol} {currCurrency.currency.isoCode} 
+      <AnimatePresence>
+        {
+          showDrop && (
+            <ul className="absolute overflow-y-scroll z-20 bg-joobyWhite min-w-max h-[200px] translate-y-10">
+              {currencyList.map((item: ContextCountry, i: any) => {
+                return (
+                  <li className="p-4 hover:bg-joobyLightPink" key={i}>
+                    {item.name} | {item.currency.symbol} {item.currency.isoCode}
+                  </li>
+                )
+              })}
+
+            </ul>
+          )
+        }
+
+      </AnimatePresence>
+      </div>
+    </div>
+  )
+}
+
+interface CollectionProperties{
+  node: {
+    handle: string,
+    title: string,
+  }
+}
+
+
+export default function Navbar({collections}: {collections: CollectionProperties[]}) {
+  const {
+    // currencyList,
+    // currency,
+    // setCurrency,
+    // cartLines,
+    // updateCartLines,
+    // showCart,
+    setShowCart,
+  } = useContext(CartContext);
 
   const [showBanner, setShowBanner] = useState<boolean>(true);
 
@@ -239,46 +301,59 @@ export default function Navbar({}) {
             JoobyRumi
           </Link>
         </h1>
+        {/* Finish after paying for shopify plan */}
+        {/* <CurrencyDropdown></CurrencyDropdown> */}
         <div className="flex flex-row justify-center items-center w-screen text-xl pt-2 border-joobyLightPink border-b-2 h-auto">
           <Link href={"/"}>
             <NavBarItem>Home</NavBarItem>
           </Link>
-          <Link href={"/tutorials"}>
+          {/* <Link href={"/tutorials"}>
             <NavBarItem>Tutorials</NavBarItem>
-          </Link>
-            <NavDropDown label="Shop" href={"/shop/store"}>
-              <Link className="w-full" href={"/shop/starter"}>
-                <NavBarItem>Starter Kit</NavBarItem>
-              </Link>
-              <Link className="w-full" href={"/shop/jars"}>
-                <NavBarItem>Jars</NavBarItem>
-              </Link>
-              <Link className="w-full" href={"/shop/findings"}>
-                <NavBarItem>Findings</NavBarItem>
-              </Link>
-              <Link className="w-full" href={"/shop/store"}>
-                <NavBarItem>Shop All</NavBarItem>
-              </Link>
-            </NavDropDown>
+          </Link> */}
+          <NavDropDown label="Shop" href={"/shop/store"}>
 
+            <Link className="w-full" href={"/shop/starter"}>
+              <NavBarItem>Starter Kit</NavBarItem>
+            </Link>
+            <Link className="w-full" href={"/shop/jars"}>
+              <NavBarItem>Jars</NavBarItem>
+            </Link>
+            <Link className="w-full" href={"/shop/findings"}>
+              <NavBarItem>Findings</NavBarItem>
+            </Link>
+            <Link className="w-full" href={"/shop/store"}>
+              <NavBarItem>Shop All</NavBarItem>
+            </Link>
+          </NavDropDown>
 
-            <NavDropDown label="Shop Jooby" href={"/shop/jooby/store"}>
-              <Link className="w-full" href={"/shop/jooby/store"}>
-                <NavBarItem>Necklaces</NavBarItem>
-              </Link>
-              <Link className="w-full" href={"/shop/jooby/store"}>
-                <NavBarItem>Bracelets</NavBarItem>
-              </Link>
-              <Link className="w-full" href={"/shop/jooby/store"}>
-                <NavBarItem>Phone Charms</NavBarItem>
-              </Link>
-              <Link className="w-full" href={"/shop/jooby/store"}>
-                <NavBarItem>Earrings</NavBarItem>
-              </Link>
-              <Link className="w-full" href={"/shop/jooby/store"}>
-                <NavBarItem>Shop All</NavBarItem>
-              </Link>
-            </NavDropDown>
+          <NavDropDown label="Shop Jooby" href={"/collections/jooby"}>
+            {collections.map((collection, i) => {
+
+                if (collection.node.handle == 'jooby'){
+                  return
+                }
+                return (
+                  <Link key={i} className="w-full" href={`/collections/${collection.node.handle}`}>
+                    <NavBarItem>{collection.node.title}</NavBarItem>
+                  </Link>
+                )
+              })}
+            {/* <Link className="w-full" href={"/collections/jooby"}>
+              <NavBarItem>Necklaces</NavBarItem>
+            </Link>
+            <Link className="w-full" href={"/collections/jooby"}>
+              <NavBarItem>Bracelets</NavBarItem>
+            </Link>
+            <Link className="w-full" href={"/collections/jooby"}>
+              <NavBarItem>Phone Charms</NavBarItem>
+            </Link>
+            <Link className="w-full" href={"/collections/jooby"}>
+              <NavBarItem>Earrings</NavBarItem>
+            </Link> */}
+            <Link className="w-full" href={"/collections/jooby"}>
+              <NavBarItem>Shop All</NavBarItem>
+            </Link>
+          </NavDropDown>
 
           <Link href={"/contact"}>
             <NavBarItem>Contact</NavBarItem>
@@ -315,4 +390,3 @@ export default function Navbar({}) {
     </>
   );
 }
-

@@ -19,11 +19,10 @@ export default function Category({
 }: CategoryProps) {
   const [hover, setHover] = useState<boolean>(false);
 
-
   return (
     <div
-      className="w-auto rounded-lg overflow-hidden hover:cursor-pointer shadow-[3px_2px_30px_-20px_rgba(0,0,0,0.3)]"
-      onMouseEnter={() => {console.log('entered'); setHover(true)}}
+      className="w-auto rounded-lg overflow-hidden hover:cursor-pointer border-stone-200  shadow-[3px_2px_30px_-20px_rgba(0,0,0,0.3)]"
+      onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       <div className="relative">
@@ -32,8 +31,8 @@ export default function Category({
         )}
         {imgSrc && (
           <Image
-          height={370}
-          width={370}
+            height={370}
+            width={370}
             alt="itemImg"
             src={imgSrc}
             className="z-00 w-[370px] h-[370px] object-cover"
@@ -41,35 +40,32 @@ export default function Category({
         )}
         <AnimatePresence>
           {/* Can wrap AnimatePresence and use with hover state if whileHover isn't enough */}
-            {hover &&  (
-              <div className="absolute overflow-hidden top-0">
-                <motion.div
-  
-                  animate={{
-                    scale: 1.1,
-                    opacity: 1,
-                  }}
-                  exit={{
-                    scale: 1,
-                    opacity: 0,
-                    transition: {
-                      duration: .3
-                    }
-                  }}
-                  
-                >
-                  <Image
-                    src={hoverSrc || '/loading_2.jpg'}
-                    loading="eager"
-                    width={370}
-                    height={370}
-                    className="w-[370px] h-[370px] object-cover "
-                    alt="hoverImg"
-                  ></Image>
-                </motion.div>
-              </div>
-            )}
-
+          {hover && (
+            <div className="absolute overflow-hidden top-0">
+              <motion.div
+                animate={{
+                  scale: 1.05,
+                  opacity: 1,
+                }}
+                exit={{
+                  scale: 1,
+                  opacity: 0,
+                  transition: {
+                    duration: 0.3,
+                  },
+                }}
+              >
+                <Image
+                  src={hoverSrc || "/loading_2.jpg"}
+                  loading="eager"
+                  width={370}
+                  height={370}
+                  className="w-[370px] h-[370px] object-cover "
+                  alt="hoverImg"
+                ></Image>
+              </motion.div>
+            </div>
+          )}
         </AnimatePresence>
       </div>
       <h2 className={labelClassName}>{children}</h2>

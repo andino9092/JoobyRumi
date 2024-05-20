@@ -124,6 +124,28 @@ export interface CartLine {
   };
 }
 
+export interface CartContextType {
+  cartLines: any;
+  updateCartLines: () => void;
+  showCart: boolean;
+  setShowCart: (arg: boolean) => void;
+  currencyList: ContextCountry[];
+  currCurrency: any;
+  setCurrency: (arg: any) => void;
+}
+
+export interface ContextCountry{
+  currency: {
+    isoCode: string,
+    name: string,
+    symbol: string,
+  },
+  isoCode: string,
+  name: string,
+  unitSystem: string,
+}
+
+
 export interface CartDisplay {
   id: string;
   checkoutUrl: string;

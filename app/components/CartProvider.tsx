@@ -1,48 +1,62 @@
-'use client'
+"use client";
 
-import { createContext, useEffect, useState } from "react"
-import { CartDisplay } from "../utils/interfaces";
+import { createContext, useEffect, useState } from "react";
+import {
+    CartContextType,
+  CartDisplay,
+  ContextCountry,
+} from "../utils/interfaces";
 import CartSidebar from "./CartSidebar";
 
-interface CartContextType{
-    cartLines: any,
-    updateCartLines: any
-    showCart: boolean,
-    setShowCart: any,
-}
 
-export const CartContext = createContext<CartContextType>({cartLines: null, updateCartLines: null, showCart: false, setShowCart: null})
+export const CartContext = createContext<CartContextType>({
+  cartLines: null,
+  updateCartLines: () => {},
+  showCart: false,
+  setShowCart: (arg) => {},
+  currencyList: [],
+  currCurrency: null,
+  setCurrency: () => null,
+});
+
+export function CartProvider({ context, children }: any) {
+  const [cartLines, setCartLines] = useState<CartDisplay>();
+  const [showCart, setShowCart] = useState<boolean>(false);
+  const [currCurrency, setCurrency] = useState<ContextCountry>(context.country);
+  const currencyList = context.availableCountries;
 
 
-export function CartProvider({children}: any){
+  // Call this after each cart update
+  const updateCartLines = async () => {
+    const cartid = localStorage.getItem("cartid");
 
-    const [cartLines, setCartLines] = useState<CartDisplay>();
-    const [showCart, setShowCart] = useState<boolean>(false);
-
-
-    // Call this after each cart update
-    const updateCartLines = async() => {
-        const cartid = localStorage.getItem("cartid");
-
-        if (cartid != null){
-            const req = await fetch(`/api/getCart?cartId=${cartid}`, {
-                method: "POST",
-            })
-            .then((res) => res.json());
-            setCartLines(req.res.data.cart)
-            console.log('updating cart');
-        }
+    if (cartid != null) {
+      const req = await fetch(`/api/getCart?cartId=${cartid}`, {
+        method: "POST",
+      }).then((res) => res.json());
+      setCartLines(req.res.data.cart);
+      console.log("updating cart");
     }
+  };
 
-    useEffect(() => {
-        updateCartLines();
-    }, [])
+  useEffect(() => {
+    updateCartLines();
+  }, []);
 
-    return (
-        <CartContext.Provider value={{cartLines, updateCartLines, showCart, setShowCart}}>
-
-            {children}
-            <CartSidebar cartLines={cartLines}></CartSidebar>
-        </CartContext.Provider>
-    )
+  return (
+    <CartContext.Provider
+      value={{
+        currencyList,
+        currCurrency,
+        setCurrency,
+        cartLines,
+        updateCartLines,
+        showCart,
+        setShowCart,
+      }}
+    >
+      {children}
+      <CartSidebar cartLines={cartLines}></CartSidebar>
+    </CartContext.Provider>
+  );
 }

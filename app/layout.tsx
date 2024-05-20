@@ -5,6 +5,7 @@ import { CartProvider } from "./components/CartProvider";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import DashboardFade from "./components/DashboardFade";
+import getQuery from "./utils/serverUtils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,11 +17,52 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const currencyQuery = `query @inContext(country: US) {
+    localization {
+      availableCountries {
+        currency {
+          isoCode
+          name
+          symbol
+        }
+        isoCode
+        name
+        unitSystem
+      }
+      country {
+        currency {
+          isoCode
+          name
+          symbol
+        }
+        isoCode
+        name
+        unitSystem
+      }
+    }
+  }`;
+
+  const collectionsQuery = `query {
+    collections(first: 20) {
+      edges {
+        node {
+          handle
+          title
+        }
+      }
+    }
+  }`
+
+  const res = await getQuery(currencyQuery);
+
+  const collections = await getQuery(collectionsQuery)
+
+  // console.log(res.data.localization.availableCountries);
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -30,11 +72,11 @@ export default function RootLayout({
           inter.className + " relative overflow-x-hidden bg-joobyWhite"
         }
       >
-        <CartProvider>
-          <Navbar></Navbar>
+        <CartProvider context={res.data.localization}>
+          <Navbar collections={collections.data.collections.edges}></Navbar>
           {children}
         </CartProvider>
-          <Footer></Footer>
+        <Footer></Footer>
       </body>
     </html>
   );

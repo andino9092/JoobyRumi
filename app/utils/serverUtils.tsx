@@ -14,7 +14,7 @@ export default async function getQuery(query: string, variables: any = {}){
 
     const res = await fetch(fetchURL, {
       
-        next: { revalidate: 1800 },
+        next: { revalidate: 100 },
         method: 'POST',
         headers: defaultHeaders,
         body: JSON.stringify({query, variables}),
