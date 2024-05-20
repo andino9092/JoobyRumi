@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ProductDisplay {
   node: {
     title: string;
@@ -113,14 +115,36 @@ export interface CartLine {
       title: string;
       totalInventory: string | null;
     };
-  };
-  price: {
-    amount: string;
-  };
-  image: {
-    url: string;
+    price: {
+      amount: string;
+    };
+    image: {
+      url: string;
+    };
   };
 }
+
+export interface CartContextType {
+  cartLines: any;
+  updateCartLines: () => void;
+  showCart: boolean;
+  setShowCart: (arg: boolean) => void;
+  currencyList: ContextCountry[];
+  currCurrency: any;
+  setCurrency: (arg: any) => void;
+}
+
+export interface ContextCountry{
+  currency: {
+    isoCode: string,
+    name: string,
+    symbol: string,
+  },
+  isoCode: string,
+  name: string,
+  unitSystem: string,
+}
+
 
 export interface CartDisplay {
   id: string;
@@ -142,4 +166,12 @@ export interface CartIdHook {
   cartId: string,
   onCreateCart: () => void,
   clearCart: () => void,
+}
+
+export interface StaggeredCarouselProps{
+  heading : string,
+  children : {
+   href: string,
+   label: ReactNode | string, 
+  }[]
 }

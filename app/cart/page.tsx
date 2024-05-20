@@ -55,12 +55,12 @@ export default async function Cart({}){
 
     return (
         <>
-            {cart.lines.edges.map((item) => {
+            {/* {cart.lines.edges.map((item) => {
                 // console.log(item.node);
                 return (
                     <CartItem key={item.node.id} line={item.node}/>
                 )
-            })}
+            })} */}
             Cart section, we make it or we get it from Shopify waka waka
             <div>
                 {}
