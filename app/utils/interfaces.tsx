@@ -115,12 +115,12 @@ export interface CartLine {
       title: string;
       totalInventory: string | null;
     };
-  };
-  price: {
-    amount: string;
-  };
-  image: {
-    url: string;
+    price: {
+      amount: string;
+    };
+    image: {
+      url: string;
+    };
   };
 }
 
