@@ -38,7 +38,7 @@ export default function ShoppingList({ items }: ShoppingListProps) {
         initial="hidden"
         animate="visible"
         variants={parent}
-        className="flex flex-row flex-wrap gap-x-5 h-max gap-y-10 justify-center py-4"
+        className="flex flex-row w-[1560px] flex-wrap gap-x-5 h-max gap-y-10 justify-start py-4"
       >
         {items.map((item, i) => {
           // console.log(item.node.priceRange.minVariantPrice.amount)
@@ -54,7 +54,9 @@ export default function ShoppingList({ items }: ShoppingListProps) {
               <motion.div variants={children}>
                 <Category {...imgProps}>
                   <div>{item.node.title}</div>
-                  <div className="">${item.node.priceRange.minVariantPrice.amount} USD</div>
+                  <div className="font-DMSans">
+                    ${item.node.priceRange.minVariantPrice.amount} USD
+                  </div>
                 </Category>
               </motion.div>
             </Link>

@@ -38,7 +38,7 @@ export default function Home({}) {
         label: (
           <div>
             <div>Cluster Bracelet</div>
-            <div>$10.00</div>
+            <div className='font-DMSans'>$10.00</div>
           </div>
         ),
       },
@@ -47,7 +47,7 @@ export default function Home({}) {
         label: (
           <div>
             <div>Cluster Bracelet</div>
-            <div>$10.00</div>
+            <div className='font-DMSans'>$10.00</div>
           </div>
         ),
       },
@@ -56,7 +56,7 @@ export default function Home({}) {
         label: (
           <div>
             <div>Cluster Bracelet</div>
-            <div>$10.00</div>
+            <div className='font-DMSans'>$10.00</div>
           </div>
         ),
       },
@@ -65,7 +65,7 @@ export default function Home({}) {
         label: (
           <div>
             <div>Cluster Bracelet</div>
-            <div>$10.00</div>
+            <div className='font-DMSans'>$10.00</div>
           </div>
         ),
       },
@@ -87,7 +87,7 @@ export default function Home({}) {
             <Loading className="w-[900px] h-[640px] object-cover "></Loading>
             <section className="flex flex-col gap-8 items-center justify-center basis-1/4">
               <h1 className="text-5xl">Jooby Newbie Kit</h1>
-              <article className="text-center">
+              <article className="text-center font-DMSans">
                 The all included beginner friendly kit fit for anyone and
                 everyone!
               </article>
@@ -102,7 +102,7 @@ export default function Home({}) {
           >
             <section className="flex flex-col gap-8 items-center justify-center basis-1/4">
               <h1 className="text-5xl">Ad Break</h1>
-              <article className="text-center">
+              <article className="text-center font-DMSans">
                 Contrary to popular belief, Lorem Ipsum is not simply random
                 text. It has roots in a piece of classical Latin literature from
                 45 BC, making it over 2000 years old. Richard McClintock, a

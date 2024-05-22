@@ -45,8 +45,8 @@ export default async function ProductTemplate({
 
   return (
     <div className="flex flex-col font-DMSerifDisplay text-joobyDark">
-      <h1 className="ml-48 text-2xl mr-48 pt-8">Shop Jooby</h1>
-      <div className="flex gap-12 justify-center flex-row">
+      <h1 className="ml-40 text-2xl mr-48 pt-8">Shop Jooby</h1>
+      <div className="flex gap-12 justify-center flex-row py-8">
         <ShoppingList items={products}></ShoppingList>
       </div>
     </div>
