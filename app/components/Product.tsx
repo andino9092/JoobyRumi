@@ -3,19 +3,16 @@
 import { useContext, useState } from "react";
 import Button from "./Button";
 import { CartContext } from "./CartProvider";
+import Accordion from "./Accordion";
 import { formatPrice } from "../utils";
 import Image from "next/image";
 
-export default function Product({prodict, product, hasVariants}: any) {
+export default function Product({prodict, product, hasVariants, isJooby, description, whatsIncluded, skillLevel}: any) {
   const {cartLines, updateCartLines, showCart, setShowCart} = useContext(CartContext)
   const [currVariant, setCurrVariant] = useState({
     "title": product.variants.edges[0].node.title,
     "full_image": prodict[product.variants.edges[0].node.title].productImages[0]
   })
-
-  function ImageRotation({edges} : {edges: any}) {
-
-  }
 
   const addProduct = async(variantId: string) => {
     let cartid = localStorage.getItem("cartid");
@@ -37,14 +34,11 @@ export default function Product({prodict, product, hasVariants}: any) {
     setShowCart(true);
   }
 
-  const refreshCart = () => {
-    localStorage.removeItem("cartid");
-    updateCartLines();
-  }
-  
+  console.log(description)
+
   return (
     <div>
-      <div className="px-[70px] pt-12 grid grid-cols-12 gap-[30px]">
+      <div className="px-[70px] pt-14 grid grid-cols-12 gap-[30px]">
         <div className="col-span-7 grid grid-cols-7 gap-[30px]">
           <div className="">
             {prodict[currVariant.title].productImages.map((item: any, i: number) => {
@@ -59,8 +53,8 @@ export default function Product({prodict, product, hasVariants}: any) {
         </div>
         <div className="col-span-5">
           <div className="mx-auto px-10">
-            <p className="font-black text-6xl">{product.title}</p>
-            <p className="font-medium text-2xl text-stone-500 py-5">{formatPrice(prodict[currVariant.title].price)}</p>
+            <p className="font-black text-5xl font-DMSerifDisplay">{product.title}</p>
+            <p className="font-medium text-2xl text-stone-500 py-5 font-DMSerifDisplay">{formatPrice(prodict[currVariant.title].price)}</p>
             {hasVariants && 
               <div>
                 <div className="flex">
@@ -84,7 +78,17 @@ export default function Product({prodict, product, hasVariants}: any) {
                 </div>
               </div>
             }
-            <Button onClick={() => addProduct(prodict[currVariant.title].variantId)}> ADD TO CART </Button>
+            <Button className={"w-full"} onClick={() => addProduct(prodict[currVariant.title].variantId)}> ADD TO CART </Button>
+            {isJooby ? 
+            <div className="mt-10">
+              <div className="" dangerouslySetInnerHTML={{ __html: description }} />
+            </div>
+            :
+            <div className="mt-10">
+              {description && <Accordion title={"Description"}>{description}</Accordion>}
+              {whatsIncluded && <Accordion title={"What's Included"}>{whatsIncluded}</Accordion>}
+              {skillLevel && <Accordion title={"Skill Level"}>{skillLevel}</Accordion>}
+            </div>}
           </div>
         </div>
       </div>
