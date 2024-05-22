@@ -5,6 +5,7 @@ import Button from "./Button";
 import { CartContext } from "./CartProvider";
 import Accordion from "./Accordion";
 import { formatPrice } from "../utils";
+import Image from "next/image";
 
 export default function Product({prodict, product, hasVariants, isJooby, description, whatsIncluded, skillLevel}: any) {
   const {cartLines, updateCartLines, showCart, setShowCart} = useContext(CartContext)
@@ -40,10 +41,10 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
       <div className="px-[70px] pt-14 grid grid-cols-12 gap-[30px]">
         <div className="col-span-7 grid grid-cols-7 gap-[30px]">
           <div className="">
-            {prodict[currVariant.title].productImages.map((item: any) => {
+            {prodict[currVariant.title].productImages.map((item: any, i: number) => {
               return (
-                <button>
-                  <img key={item} className="rounded-xl" src={item} onClick={() => {setCurrVariant(prev => ({...prev, "full_image": item}))}} width={100} height={100}></img>
+                <button key={i}>
+                  <Image alt='product' key={item} className="rounded-xl" src={item} onClick={() => {setCurrVariant(prev => ({...prev, "full_image": item}))}} width={100} height={100}></Image>
                 </button>
               )
             })}
@@ -61,15 +62,16 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
                   <p className="font-light ml-2">{currVariant.title}</p>
                 </div>
                 <div className="pt-1 pb-7 flex">
-                  {product.variants.edges.map((item: any) => {
+                  {product.variants.edges.map((item: any, i: number) => {
                     return (
                       <button 
+                        key={i}
                         className="pr-3"
                         onClick={() => {setCurrVariant({
                           "title": item.node.title,
                           "full_image": prodict[item.node.title].productImages[0]
                         })}}>
-                        <img className="h-14 w-14 rounded-lg" src={item.node.image.url}></img>
+                        <Image height={56} width={56} alt='itemImg' className="h-14 w-14 rounded-lg" src={item.node.image.url}></Image>
                       </button>
                     )
                   })}
