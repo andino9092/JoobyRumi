@@ -2,6 +2,9 @@ import Product from "@/app/components/Product";
 import { ProductPage, ProductNode } from "@/app/utils/interfaces";
 import getQuery from "@/app/utils/serverUtils";
 import { formatPrice } from "@/app/utils";
+import { split } from "postcss/lib/list";
+import { cookies } from "next/headers";
+import { secureHeapUsed } from "crypto";
 
 
 const query = `query getProductByHandle($handle: String) {
@@ -23,6 +26,8 @@ const query = `query getProductByHandle($handle: String) {
         }
         totalInventory
         description
+        descriptionHtml
+        tags
         variants(first: 10) {
           edges {
             node {
@@ -62,14 +67,32 @@ interface ProductVariant {
   };
 }
 
-export async function getImageDict(product: ProductPage) {
-  interface ImageDict {
-    [key: string]: {
-      price: number,
-      variantId: string;
-      productImages: string[];
-    };
+interface ImageDict {
+  [key: string]: {
+    price: number,
+    variantId: string;
+    productImages: string[];
+  };
+}
+
+export async function checkJooby(tags: string[]) {
+  for (let i = 0; i < tags.length; ++i) {
+    if (tags[i].toLowerCase() === "jooby") {
+      return true
+    }
   }
+  return false
+}
+
+export async function splitDescription(text: string) {
+  if (text === "") {
+    return null
+  }
+  const sections = text.split("<p>Section</p>\n")
+  return sections
+}
+
+export async function getImageDict(product: ProductPage) {
   let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
     const key: string | null = variant.node.title;
     if (key) {
@@ -106,16 +129,25 @@ export default async function ProductTemplate({
 
   const product: ProductPage = res.data.product;
   const prodict: any = await getImageDict(product)
+  const description: any = await splitDescription(product.descriptionHtml)
+  const isJooby: boolean = await checkJooby(product.tags)
 
   let hasVariants = true
   if (Object.keys(prodict).length === 1 && Object.keys(prodict)[0] === "Default Title") {
     hasVariants = false
   }
-  console.log(prodict)
 
   return (
     <div className="w-screen h-screen bg-stone-100 text-stone-800">
-      <Product className="border-2 border-red-500" prodict={prodict} product={product} hasVariants={hasVariants}></Product>
+      <Product
+        prodict={prodict}
+        product={product}
+        hasVariants={hasVariants}
+        isJooby={isJooby}
+        description={description?.[0] || null}
+        whatsIncluded={description?.[1] || null}
+        skillLevel={description?.[2] || null}
+      ></Product>
     </div>
   );
 }

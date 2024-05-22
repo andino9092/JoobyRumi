@@ -56,6 +56,8 @@ export interface ProductPage {
   };
   totalInventory: number;
   description: string;
+  descriptionHtml: string;
+  tags: string[],
   variants: {
     edges: [
       {
