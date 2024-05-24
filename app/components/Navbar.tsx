@@ -315,7 +315,7 @@ export default function Navbar({collections}: {collections: CollectionProperties
             <Link className="w-full" href={"/shop/starter"}>
               <NavBarItem>Starter Kit</NavBarItem>
             </Link>
-            <Link className="w-full" href={"/shop/jars"}>
+            <Link className="w-full" href={"/shop/products/jar"}>
               <NavBarItem>Jars</NavBarItem>
             </Link>
             <Link className="w-full" href={"/shop/findings"}>

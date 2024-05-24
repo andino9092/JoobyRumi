@@ -113,13 +113,6 @@ export async function getImageDict(product: ProductPage) {
       }
       return acc;
   }, prodict);
-
-interface ImageDict {
-  [key: string]: {
-    price: number,
-    variantId: string;
-    productImages: string[];
-  };
 }
 
 // Changed to sync function because doesn't handle any async promises
@@ -172,7 +165,7 @@ export default async function ProductTemplate({
   }
 
   return (
-    <div className="w-screen h-screen bg-stone-100 text-stone-800">
+    <div className="w-screen h-fit bg-stone-100 text-stone-800">
       <Product
         prodict={prodict}
         product={product}
@@ -185,5 +178,3 @@ export default async function ProductTemplate({
     </div>
   );
 }
-
-
