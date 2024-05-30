@@ -38,9 +38,9 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
 
   return (
     <div>
-      <div className="px-[70px] py-14 grid grid-cols-12 gap-[30px] md:grid-cols-12">
-        <div className="col-span-7 grid grid-cols-7 gap-[30px]">
-          <div className="">
+      <div className="grid grid-cols-6 gap-[10px] pb-5 md:py-14 md:gap-[30px] md:px-[70px] md:grid-cols-12 ">
+        <div className="col-span-6 flex flex-col-reverse md:grid md:grid-cols-7 md:gap-[30px] md:col-span-7">
+          <div className="hidden md:block">
             {prodict[currVariant.title].productImages.map((item: any, i: number) => {
               return (
                 <button key={i}>
@@ -49,8 +49,8 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
               )
             })}
           </div>
-          <img className="col-span-6 w-full object-cover object-center rounded-xl shadow-3xl" src={currVariant.full_image} width={400} height={400}></img>
-          <div className="col-span-7 bg-joobyLightPink h-[450px] rounded-xl mt-10 flex">
+          <img className="w-full object-cover object-center md:rounded-xl md:shadow-3xl md:col-span-6" src={currVariant.full_image} width={400} height={400}></img>
+          <div className="hidden md:col-span-7 md:bg-joobyLightPink md:h-[450px] md:rounded-xl md:mt-10 md:flex">
             <div className="w-fit h-fit m-auto">
               <p className="font-DMSerifDisplay text-2xl py-2">A Perfect Pair</p>
               <div className="flex">
@@ -73,9 +73,18 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
             </div>
           </div>
         </div>
-        <div className="col-span-5">
-          <div className="mx-auto px-10">
-            <p className="font-black text-5xl font-DMSerifDisplay">{product.title}</p>
+        {/* <div className="flex flex-row col-span-6 lg:hidden">
+          {prodict[currVariant.title].productImages.map((item: any, i: number) => {
+            return (
+              <button key={i}>
+                <Image alt='product' key={item} className="h-14 w-14 mr-2 rounded-md" src={item} onClick={() => {setCurrVariant(prev => ({...prev, "full_image": item}))}} width={200} height={200}></Image>
+              </button>
+            )
+          })}
+        </div> */}
+        <div className=" px-[20px] col-span-6 lg:col-span-5">
+          <div className="mx-auto px-2 lg:px-10">
+            <p className="font-black text-5xl font-DMSerifDisplay mt-3 md:mt-[0px]">{product.title}</p>
             <p className="font-medium text-2xl text-stone-500 py-5 font-DMSerifDisplay">{formatPrice(prodict[currVariant.title].price)}</p>
             {hasVariants && 
               <div>
