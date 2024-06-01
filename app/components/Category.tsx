@@ -62,7 +62,7 @@ export default function Category({
                     duration: 0.3,
                   },
                 }}
-                className="w-[180px] h-[180px] sm:w-[20vw] sm:h-[20vw] absolute top-0"
+                className="hidden sm:flex w-[180px] h-[180px] sm:w-[20vw] sm:h-[20vw] absolute top-0"
               >
                 <Image
                   src={hoverSrc || "/loading_2.jpg"}

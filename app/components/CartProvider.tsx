@@ -2,12 +2,11 @@
 
 import { createContext, useEffect, useState } from "react";
 import {
-    CartContextType,
+  CartContextType,
   CartDisplay,
   ContextCountry,
 } from "../utils/interfaces";
 import CartSidebar from "./CartSidebar";
-
 
 export const CartContext = createContext<CartContextType>({
   cartLines: null,
@@ -25,6 +24,7 @@ export function CartProvider({ context, children }: any) {
   const [currCurrency, setCurrency] = useState<ContextCountry>(context.country);
   const currencyList = context.availableCountries;
 
+  console.log(currCurrency);
 
   // Call this after each cart update
   const updateCartLines = async () => {
@@ -35,7 +35,6 @@ export function CartProvider({ context, children }: any) {
         method: "POST",
       }).then((res) => res.json());
       setCartLines(req.res.data.cart);
-      console.log("updating cart");
     }
   };
 

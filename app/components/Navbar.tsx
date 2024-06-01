@@ -18,17 +18,17 @@ interface CollectionProperties {
   };
 }
 
-const getWidth = () => {
+export const getWidth = () => {
   return window.innerWidth;
 };
 
-const subscribe = (cb: any) => {
+export const subscribe = (cb: any) => {
   window.addEventListener("resize", cb);
 
   return () => window.removeEventListener("resize", cb);
 };
 
-const serverWidth = () => {
+export const serverWidth = () => {
   return undefined;
 };
 
@@ -77,7 +77,7 @@ export default function Navbar({
   return (
     <>
       <div className="w-screen flex justify-center items-center sm:flex-col fixed sm:static z-20 h-auto sm:pt-4 font-DMSerifDisplay bg-joobyWhite overflow-x-hidden">
-        <h1 className="text-3xl text-joobyDark w-screen text-center py-4 lg:pt-4 font-bold">
+        <h1 className="text-3xl text-joobyDark w-screen text-center py-2 lg:pt-4 font-bold">
           <Link
             href={"/"}
             className="hover:cursor-pointer hover:text-stone-700"
@@ -85,8 +85,8 @@ export default function Navbar({
             JoobyRumi
           </Link>
         </h1>
-        {/* Finish after paying for shopify plan */}
-        <CurrencyDropdown></CurrencyDropdown>
+        
+        {width && width >= 600 && <CurrencyDropdown></CurrencyDropdown>}
 
         {/* 
           ========================
@@ -117,7 +117,7 @@ export default function Navbar({
           ========================
          */}
         {width && width >= 640 && (
-          <div className="flex flex-row justify-center items-center w-screen text-xl pt-2 border-joobyLightPink border-b-2 h-auto">
+          <div className="flex flex-row justify-center items-center w-screen text-xl border-joobyLightPink border-b-2 h-auto">
             <Link href={"/"}>
               <NavBarItem>Home</NavBarItem>
             </Link>

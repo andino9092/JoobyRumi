@@ -186,7 +186,7 @@ export default function CartSidebar(props: any) {
               </>
               )
               :
-              (<motion.div variants={childVariants} className="w-screen h-auto min-h-[300px] flex justify-center items-center text-joobyDark text-2xl">
+              (<motion.div variants={childVariants} className="w-screen sm:absolute sm:block sm:w-auto sm:left-32 sm:top-80 h-auto min-h-[300px] flex justify-center items-center text-joobyDark text-2xl">
                 YOUR CART IS EMPTY
               </motion.div>)}
             </motion.div>

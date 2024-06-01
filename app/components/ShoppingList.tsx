@@ -4,6 +4,7 @@ import Link from "next/link";
 import Category from "./Category";
 import { motion } from "framer-motion";
 import { formatPrice } from "../utils";
+import { useState } from "react";
 
 interface ShoppingListProps {
   items: any[];
@@ -33,6 +34,10 @@ const children = {
 };
 
 export default function ShoppingList({ items }: ShoppingListProps) {
+
+  const [data, setData] = useState<any[]>(items)
+  console.log(items[0]);
+
   return (
     <div className="sm:ml-28 flex justify-center min-h-screen">
       <motion.div
@@ -56,6 +61,7 @@ export default function ShoppingList({ items }: ShoppingListProps) {
                 <Category {...imgProps}>
                   <div>{item.node.title}</div>
                   <div className="font-DMSans">
+
                     {formatPrice(item.node.priceRange.minVariantPrice.amount)} USD
                   </div>
                 </Category>

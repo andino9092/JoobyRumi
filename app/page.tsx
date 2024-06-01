@@ -14,15 +14,15 @@ export default function Home({}) {
     children: [
       {
         href: "/shop/jars",
-        label: "Shop Jooby Jars",
+        label: "Shop JoobyJars",
       },
       {
         href: "/shop/starter",
         label: "Shop Findings",
       },
       {
-        href: "/shop/tins",
-        label: "Shop Tins",
+        href: "/collections/jooby",
+        label: "Shop Jooby",
       },
       {
         href: "/shop/store",
