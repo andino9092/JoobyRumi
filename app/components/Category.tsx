@@ -15,33 +15,41 @@ export default function Category({
   children,
   imgSrc,
   hoverSrc,
-  labelClassName = "bg-white w-[370px] h-auto py-3 px-5",
+  labelClassName = "bg-white w-[180px] sm:w-[20vw] h-auto py-3 px-5",
 }: CategoryProps) {
   const [hover, setHover] = useState<boolean>(false);
 
+
   return (
     <div
-      className="w-auto rounded-lg overflow-hidden hover:cursor-pointer border-stone-200  shadow-[3px_2px_30px_-20px_rgba(0,0,0,0.3)]"
-      onMouseEnter={() => setHover(true)}
+      className="flex-grow w-[180px] sm:w-[20vw] rounded-xl sm:overflow-hidden h-auto hover:cursor-pointer border-stone-200  shadow-[3px_2px_30px_-20px_rgba(0,0,0,0.3)]"
+      onMouseEnter={() => {
+        
+        
+        
+        setHover(true)}}
       onMouseLeave={() => setHover(false)}
     >
-      <div className="relative">
+      <div className="relative overflow-hidden rounded-t-xl ">
         {!imgSrc && (
-          <Loading className="z-00 w-[370px] h-[370px] object-cover"></Loading>
+          <Loading className="z-00 w-[180px] h-[180px] sm:w-[20vw] sm:h-[20vw] object-cover"></Loading>
         )}
         {imgSrc && (
-          <Image
-            height={370}
-            width={370}
-            alt="itemImg"
-            src={imgSrc}
-            className="z-00 w-[370px] h-[370px] object-cover"
-          ></Image>
+          <div className="w-[180px] h-[180px] sm:w-[20vw] sm:h-[20vw]">
+            <Image
+              fill
+              // Do this later to optimize
+              // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              alt="itemImg"
+              src={imgSrc}
+              className="z-00 object-cover"
+            ></Image>
+            </div>
         )}
         <AnimatePresence>
           {/* Can wrap AnimatePresence and use with hover state if whileHover isn't enough */}
           {hover && (
-            <div className="absolute overflow-hidden top-0">
+
               <motion.div
                 animate={{
                   scale: 1.05,
@@ -54,17 +62,16 @@ export default function Category({
                     duration: 0.3,
                   },
                 }}
+                className="w-[180px] h-[180px] sm:w-[20vw] sm:h-[20vw] absolute top-0"
               >
                 <Image
                   src={hoverSrc || "/loading_2.jpg"}
                   loading="eager"
-                  width={370}
-                  height={370}
-                  className="w-[370px] h-[370px] object-cover "
+                  fill
+                  className="object-cover "
                   alt="hoverImg"
                 ></Image>
               </motion.div>
-            </div>
           )}
         </AnimatePresence>
       </div>

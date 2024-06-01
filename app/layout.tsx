@@ -62,19 +62,21 @@ export default async function RootLayout({
 
   const collections = await getQuery(collectionsQuery)
 
-  // console.log(res.data.localization.availableCountries);
+  console.log(res.data.localization.availableCountries);
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" sizes="any" />
 
       <body
         className={
-          inter.className + " relative overflow-x-hidden bg-joobyWhite"
+          inter.className + " relative  bg-joobyWhite"
         }
       >
         <CartProvider context={res.data.localization}>
           <Navbar collections={collections.data.collections.edges}></Navbar>
-          {children}
+          <div className="pt-[68px] sm:pt-0 overflow-auto">
+            {children}
+          </div>
         </CartProvider>
         <Footer></Footer>
       </body>

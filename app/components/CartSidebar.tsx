@@ -14,6 +14,7 @@ import { CartContext } from "./CartProvider";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Button from "./Button";
+import { formatPrice } from "../utils";
 
 const getSnapshot = () => {
   return localStorage.getItem("cartid");
@@ -34,9 +35,17 @@ const containerVariants = {
   },
   visible: {
     opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      duration: .1
+    }
   },
   exit: {
     opacity: 0,
+    transition:{
+      when: 'afterChildren',
+      duration: .1,
+    }
   },
 };
 
@@ -48,12 +57,16 @@ const sideBarVariants = {
     width: "500px",
     transition: {
       staggerChildren: 0.1,
-      duration: 0.4,
+      duration: 0.2,
       when: "beforeChildren",
     },
   },
   exit: {
     width: "0px",
+    transition: {
+      duration: .1,
+      when: 'afterChildren',
+    }
   },
 };
 
@@ -69,6 +82,7 @@ const childVariants = {
   exit: {
     opacity: 0,
     transitionY: "-20px",
+    duration: .1,
   },
 };
 
@@ -115,26 +129,44 @@ export default function CartSidebar(props: any) {
               id="cart"
               className={` text-stone-800 bg-joobyWhite h-screen absolute right-0`}
             >
-              <h1 className="font-sans text-2xl ml-20 py-10 text-joobyDark">
-                {" "}
-                CART • {cartLines.lines.edges.length}
-              </h1>
+              <motion.h1 variants={childVariants} className="font-sans text-2xl ml-24 sm:ml-8 py-6 sm:py-10 text-joobyDark relative items-center flex">
+                CART • {props.cartLines && props.cartLines.lines.edges.length != 0 ? props.cartLines.lines.edges.length : "0"}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    onClick={() => {
+                      setShowCart(false);
+                    }}
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6 absolute right-0 mr-8"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+              </motion.h1>
               <div className="flex justify-center after:w-full after:border-b-2 after:border-stone-200">
                 {" "}
               </div>
+              {props.cartLines && props.cartLines.lines.edges.length != 0 ? (
+                <>
               {inFlight && <div>WEE WOO WEE WOO</div>}
-              <div className="flex flex-col divide-y-2 py-4 overflow-y-auto overflow-x-hidden">
+              <div className="flex flex-col divide-y-2 py-4 ml-20 sm:ml-0 overflow-y-auto overflow-x-hidden">
                 {props.cartLines &&
                   !inFlight &&
                   props.cartLines.lines.edges.map((item: any) => {
                     // console.log(item.node);
                     return (
                       <CartItem
-                        variants={childVariants}
-                        cartid={cartid}
-                        setInFlight={setInFlight}
-                        key={item.node.id}
-                        line={item.node}
+                      variants={childVariants}
+                      cartid={cartid}
+                      setInFlight={setInFlight}
+                      key={item.node.id}
+                      line={item.node}
                       />
                     );
                   })}
@@ -142,15 +174,23 @@ export default function CartSidebar(props: any) {
                   <motion.div variants={childVariants}>
                     <Link href={props.cartLines.checkoutUrl}>
                       <Button className="w-max px-8 py-5 group hover:bg-stone-200 ml-16 hover:text-joobyDark transition-all">
-                        Checkout • 
-                        <span className="text-joobyWhite pl-2 group-hover:text-joobyDark font-bold">${cartLines.cost.totalAmount.amount}</span>
+                        Checkout •
+                        <span className="text-joobyWhite pl-2 group-hover:text-joobyDark font-bold">
+                          {formatPrice(cartLines.cost.totalAmount.amount)}
+                        </span>
                       </Button>
                     </Link>
                   </motion.div>
                 )}
               </div>
+              </>
+              )
+              :
+              (<motion.div variants={childVariants} className="w-screen h-auto min-h-[300px] flex justify-center items-center text-joobyDark text-2xl">
+                YOUR CART IS EMPTY
+              </motion.div>)}
             </motion.div>
-          </motion.div>
+            </motion.div>
         )}
       </AnimatePresence>
     </>

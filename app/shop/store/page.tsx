@@ -42,10 +42,10 @@ export default async function Store({}) {
 
   return (
     <div className="flex flex-col font-DMSerifDisplay text-joobyDark">
-      <h1 className="ml-48 text-2xl mr-48 pt-8">Shop All</h1>
+       <h1 className="text-3xl ml-4  lg:ml-40 lg:text-2xl lg:mr-48 pt-12">Shop Jooby</h1>
       <div className="flex gap-12 justify-center">
         <ShoppingList items={products}></ShoppingList>
       </div>
     </div>
   );
-}
+} 
