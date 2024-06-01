@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,21 +13,19 @@
 }
 
 
-/* width */
+/* width
 ::-webkit-scrollbar {
   width: 5px;
   background: rgb(245 245 244 )
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   box-shadow: 5px 5px 5px 5px grey;
   background: rgb(245 245 244 );
   border-radius: 99px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: grey;
   border-radius: 99px;
-}
+} */
