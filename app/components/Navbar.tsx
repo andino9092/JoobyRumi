@@ -38,7 +38,7 @@ const shopItems = [
     label: "Starter Kit",
   },
   {
-    href: "/shop/products/jars",
+    href: "/shop/products/joobyjar",
     label: "Jars",
   },
   {

@@ -53,7 +53,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
               {prodict[currVariant.title].productImages.map((item: any, i: number) => {
                 return (
                   <button className="mr-2 md:mr-0 md:mb-3 md:w-full" key={i}>
-                    <Image alt='product' key={item} className="rounded-xl border-2 border-joobyDark md:border-0 md:w-full md:object-cover md:object-center" src={item} onClick={() => {setCurrVariant(prev => ({...prev, "full_image": item}))}} width={80} height={80}></Image>
+                    <Image alt='product' key={item} className="pointer-events-none rounded-xl border-2 border-joobyDark md:border-0 md:w-full md:object-cover md:object-center" src={item} onClick={() => {setCurrVariant(prev => ({...prev, "full_image": item}))}} width={80} height={80}></Image>
                   </button>
                 )
               })}
@@ -99,8 +99,8 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
             {hasVariants && 
               <div>
                 <div className="flex">
-                  <p className="font-bold text-xl text-joobyDark">Color:</p>
-                  <p className="font-light ml-2 text-xl text-joobyDark">{currVariant.title}</p>
+                  <p className="font-bold font-DMSans text-xl text-joobyDark">Color:</p>
+                  <p className="font-light font-DMSans ml-2 text-xl text-joobyDark">{currVariant.title}</p>
                 </div>
                 <div className="pt-1 pb-3 flex flex-row flex flex-row overflow-x-auto no-scrollbar">
                   {product.variants.edges.map((item: any, i: number) => {
@@ -115,7 +115,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
                           })
                           setQuantity(1)
                         }}>
-                        <Image height={56} width={56} alt='itemImg' className="object-cover object-center h-[56px] w-[56px] rounded-lg shrink-0" src={item.node.image.url}></Image>
+                        <Image height={56} width={56} alt='itemImg' className="object-cover object-center h-[56px] w-[56px] rounded-lg shrink-0 pointer-events-none" src={item.node.image.url}></Image>
                       </button>
                     )
                   })}
@@ -123,40 +123,27 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
               </div>
             }
             <div className="flex justify-between pb-7 w-full flex-wrap">
-              <p className="font-bold text-xl text-joobyDark my-auto mr-3 mb-1">Quantity</p>
+              <p className="font-bold font-DMSans text-xl text-joobyDark my-auto mr-3 mb-1">Quantity</p>
               <div className="border-[1px] border-joobyDark p-3 rounded-xl flex">
                 <CartButton
                   onClick={() => (setQuantity((prev: any) => (prev -  1)))}
                   disabled={quantity <= 1}
                 >
-                  <span className="text-3xl text-joobyDark">-</span>
+                  <span className="text-3xl text-joobyDark font-DMSans">-</span>
                 </CartButton>
-                  <span className="px-2 mx-3 pt-1 text-2xl text-joobyDark w-10 text-center">{quantity}</span>
+                  <span className="px-2 mx-3 pt-1 text-2xl text-joobyDark w-10 text-center font-DMSans">{quantity}</span>
                 <CartButton
                   onClick={() => (setQuantity((prev: any) => (prev +  1)))}
                   disabled={quantity >= prodict[currVariant.title].totalInventory}
                 >
-                  <span className="text-3xl text-joobyDark">+</span>
+                  <span className="text-3xl text-joobyDark font-DMSans">+</span>
                 </CartButton>
               </div>
             </div>
-            <Button className={"w-full hover:bg-joobyDark transition-all ease-in-out mb-8"} onClick={() => addProduct(prodict[currVariant.title].variantId)}> ADD TO CART </Button>
+            <Button className={"w-full hover:bg-joobyDark transition-all ease-in-out mb-8 font-DMSerifDisplay font-bold"} onClick={() => addProduct(prodict[currVariant.title].variantId)}> Add to cart </Button>
           </div>
 
-          {/* <div className="order-3 px-[20px] my-5">
-            {!isJooby ? 
-            <div className="">
-              <div className="" dangerouslySetInnerHTML={{ __html: description }} />
-            </div>
-            :
-            <div className="">
-              {description && <Accordion title={"Description"}>{description}</Accordion>}
-              {whatsIncluded && <Accordion title={"What's Included"}>{whatsIncluded}</Accordion>}
-              {skillLevel && <Accordion title={"Skill Level"}>{skillLevel}</Accordion>}
-            </div>}
-          </div> */}
-
-          <div className="mb-5 md:order-2">
+          <div className="mb-5 md:order-2 font-DMSans">
               <div className="" dangerouslySetInnerHTML={{ __html: description }} />
           </div>
         </div>
