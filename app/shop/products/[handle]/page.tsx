@@ -32,6 +32,7 @@ const query = `query getProductByHandle($handle: String) {
           edges {
             node {
               id
+              quantityAvailable
               title
               price {
                 amount
@@ -57,6 +58,7 @@ interface Variant {
 interface ProductVariant {
   node: {
     id: string;
+    quantityAvailable: number;
     price: {
       amount: string;
     };
@@ -92,28 +94,29 @@ export async function splitDescription(text: string) {
   return sections
 }
 
-export async function getImageDict(product: ProductPage) {
-  let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
-    const key: string | null = variant.node.title;
-    if (key) {
-        acc[key] = acc[key] || {
-          price: variant.node.price.amount,
-          variantId: variant.node.id,
-          productImages: []
-        };
-    }
-    return acc;
-  }, {});
-  product.images.edges.reduce((acc: ImageDict, variant: Variant) => {
-      const key: string | null = variant.node.altText;
-      if (key) {
-        acc[key].productImages.push(variant.node.url);
-      } else {
-        acc["Default Title"].productImages.push(variant.node.url);
-      }
-      return acc;
-  }, prodict);
-}
+// export async function getImageDict(product: ProductPage) {
+//   let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
+//     const key: string | null = variant.node.title;
+//     if (key) {
+//         acc[key] = acc[key] || {
+//           price: variant.node.price.amount,
+//           variantId: variant.node.id,
+//           totalInventory: variant.node.quantityAvailable,
+//           productImages: []
+//         };
+//     }
+//     return acc;
+//   }, {});
+//   product.images.edges.reduce((acc: ImageDict, variant: Variant) => {
+//       const key: string | null = variant.node.altText;
+//       if (key) {
+//         acc[key].productImages.push(variant.node.url);
+//       } else {
+//         acc["Default Title"].productImages.push(variant.node.url);
+//       }
+//       return acc;
+//   }, prodict);
+// }
 
 // Changed to sync function because doesn't handle any async promises
 
@@ -131,6 +134,7 @@ export default async function ProductTemplate({
           acc[key] = acc[key] || {
             price: variant.node.price.amount,
             variantId: variant.node.id,
+            totalInventory: variant.node.quantityAvailable,
             productImages: []
           };
       }
@@ -148,11 +152,10 @@ export default async function ProductTemplate({
   
     return prodict
   }
+
   const res = await getQuery(query, {
     handle: params.handle,
   });
-
-
 
   const product: ProductPage = res.data.product; 
   const prodict: any = await getImageDict(product)

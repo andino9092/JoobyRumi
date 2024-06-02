@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+const plugin = require('tailwindcss/plugin')
+
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -31,7 +33,7 @@ const config: Config = {
         'jooby-37': '37px',
         'jooby-30': '30px',
         'jooby-25': '25px',
-      }
+      },
     },
   },
   plugins: [],

@@ -13,7 +13,7 @@ const Accordion = ({children, title}: {children: string, title: string}) => {
         className="relative z-20 px-1 py-2 cursor-pointer border-b-2 border-joobyDarkPink"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="font-bold text-xl font-DMSerifDisplay flex justify-between items-center">
+        <div className="font-bold text-xl font-DMSerifDisplay text-joobyDark flex justify-between items-center">
           <div className="w-fit">
             {title}
           </div>
@@ -40,7 +40,7 @@ const Accordion = ({children, title}: {children: string, title: string}) => {
             exit={{ height: 0 }}
             transition={{type: "spring", duration: 0.4, bounce: 0}}
           >
-            <div className="p-2" dangerouslySetInnerHTML={{ __html: children }} />
+            <div className="p-2 text-joobyDark" dangerouslySetInnerHTML={{ __html: children }} />
           </motion.div>
         )}
       </AnimatePresence>
