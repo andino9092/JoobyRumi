@@ -129,7 +129,7 @@ export default async function ProductTemplate({
   return sections
 }
   function getImageDict(product: ProductPage): any {
-    let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
+    let prodict = product.variants.edges.reduce((acc: any, variant: any) => {
       const key: string | null = variant.node.title;
       if (key) {
           acc[key] = acc[key] || {
