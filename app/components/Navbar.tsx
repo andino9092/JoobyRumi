@@ -38,7 +38,7 @@ const shopItems = [
     label: "Starter Kit",
   },
   {
-    href: "/shop/jars",
+    href: "/shop/products/jars",
     label: "Jars",
   },
   {
@@ -134,7 +134,7 @@ export default function Navbar({
             <NavDropDown label="Shop Jooby" href={"/collections/jooby"}>
               {collections &&
                 collections.map((collection, i) => {
-                  if (collection.node.handle == "jooby") {
+                  if (collection.node.handle == "jooby" || collection.node.handle == 'others') {
                     return;
                   }
                   return (

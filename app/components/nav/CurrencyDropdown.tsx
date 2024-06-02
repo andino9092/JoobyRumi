@@ -5,7 +5,7 @@ import { CartContextType, ContextCountry } from "@/app/utils/interfaces";
 
 interface CurrencyDropdownProps {}
 
-export default function CurrencyDropdown({}) {
+export default function CurrencyDropdown({setShowDrawer}: any) {
   const { currencyList, currCurrency, setCurrency } =
     useContext<CartContextType>(CartContext);
   const [showDrop, setShowDrop] = useState<boolean>(false);
@@ -53,6 +53,10 @@ export default function CurrencyDropdown({}) {
                 return (
                   <li onClick={(e:any) => {
                     setCurrency(item)
+                    if (setShowDrawer){
+                      setShowDrawer(false);
+
+                    }
                   }} className="p-4 py-6 hover:bg-joobyLightPink" key={i}>
                     {item.name} | {item.currency.symbol} {item.currency.isoCode}
                   </li>

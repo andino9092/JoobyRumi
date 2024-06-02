@@ -26,7 +26,7 @@ export default function NavBanner({
             opacity: 0,
           }}
           onClick={() => setShowBanner(false)}
-          className="w-screen text-sm sm:text-base fixed mt-[68px] sm:mt-0 text-joobyDark z-10 hover:cursor-pointer bg-joobyDarkPink flex justify-center text-center items-center py-1 font-sans sm:absolute"
+          className="w-screen text-sm sm:text-base fixed mt-[52px] sm:mt-0 text-joobyDark z-10 hover:cursor-pointer bg-joobyDarkPink flex justify-center text-center items-center py-1 font-sans sm:absolute"
         >
           Free shipping for orders over __ !!
           <div className="absolute pr-6 right-0 flex justify-center items-center">

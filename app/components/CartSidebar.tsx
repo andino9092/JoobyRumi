@@ -110,7 +110,7 @@ export default function CartSidebar(props: any) {
     }
   };
 
-  // console.log(cartLines);
+  console.log(props.cartLines);
   return (
     <>
       <AnimatePresence initial={false}>

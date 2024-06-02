@@ -35,7 +35,7 @@ const joobyQuery = `query getCollection($handle: String!) {
 export default async function ProductTemplate({
   params,
 }: {
-  params: { collection: string };
+  params: { collection: string};
 }) {
   const res = await getQuery(joobyQuery, {
     handle: params.collection,
@@ -49,7 +49,7 @@ export default async function ProductTemplate({
       <DashboardFade>
         <h1 className="text-3xl ml-4  sm:ml-40 sm:text-2xl sm:mr-48 pt-12">Shop Jooby</h1>
       </DashboardFade>
-        <ShoppingList items={products}></ShoppingList>
+        <ShoppingList items={products} handle={params.collection}></ShoppingList>
     </div>
   );
 }

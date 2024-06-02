@@ -152,7 +152,7 @@ export default function MobileDrawer({
       animate="show"
       exit="exit"
       variants={drawerVariants}
-      className="fixed top-0 mt-[68px] text-joobyDark w-screen h-screen z-40 left-0 font-DMSans"
+      className="fixed top-0 mt-[52px] text-joobyDark w-screen h-screen z-40 left-0 font-DMSans"
     >
       <motion.div
         variants={bgVariants}
@@ -289,7 +289,7 @@ export default function MobileDrawer({
         >
           <div className="flex flex-col gap-6 ml-4 justify-center">
             <motion.div variants={itemVariant}>
-              <CurrencyDropdown></CurrencyDropdown>
+              <CurrencyDropdown setShowDrawer={setShowDrawer}></CurrencyDropdown>
             </motion.div>
             <motion.div variants={itemVariant}>Contact</motion.div>
             {/* <motion.div variants={itemVariant}>

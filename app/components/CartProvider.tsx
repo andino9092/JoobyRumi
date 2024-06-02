@@ -24,16 +24,16 @@ export function CartProvider({ context, children }: any) {
   const [currCurrency, setCurrency] = useState<ContextCountry>(context.country);
   const currencyList = context.availableCountries;
 
-  console.log(currCurrency);
-
   // Call this after each cart update
   const updateCartLines = async () => {
     const cartid = localStorage.getItem("cartid");
+    console.log(cartid)
 
     if (cartid != null) {
       const req = await fetch(`/api/getCart?cartId=${cartid}`, {
         method: "POST",
       }).then((res) => res.json());
+      console.log(req);
       setCartLines(req.res.data.cart);
     }
   };

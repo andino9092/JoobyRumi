@@ -25,7 +25,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
       const req = await fetch(`/api/createCart?merchandiseId=${variantId}&quantity=${1}`, {
         method: "POST",
       }).then((res) => res.json());
-      console.log(req)
+      console.log('here' +  req)
       localStorage.setItem("cartid", req.data.cartCreate.cart.id)
     }
 
@@ -34,7 +34,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
     setShowCart(true);
   }
 
-  console.log(description)
+  // console.log(description)
 
   return (
     <div>
