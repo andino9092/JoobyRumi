@@ -65,6 +65,7 @@ export interface ProductPage {
       {
         node: {
           id: string;
+          quantityAvailable: number;
           price: {
             amount: string;
           }
