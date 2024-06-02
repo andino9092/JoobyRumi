@@ -52,7 +52,7 @@ export default function Button({ children, onClick, className}: any) {
   return (
     <div>
       <button
-        className={`flex ${className} justify-center text-white bg-[#FFA5B3] border-0 py-3 focus:outline-none rounded-full`}
+        className={`flex ${className} justify-center text-white bg-[#FFA5B3] border-0 py-3 mt-5 focus:outline-none rounded-full`}
         ref={buttonRef}
         onClick={handleClick}
       >

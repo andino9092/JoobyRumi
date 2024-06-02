@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import DashboardFade from "./DashboardFade";
+import { getWidth, serverWidth, subscribe } from "./Navbar";
 import CurrencyDropdown from "./nav/CurrencyDropdown";
 
 export default function Footer({}) {
