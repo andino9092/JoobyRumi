@@ -77,22 +77,6 @@ interface ImageDict {
   };
 }
 
-export async function checkJooby(tags: string[]) {
-  for (let i = 0; i < tags.length; ++i) {
-    if (tags[i].toLowerCase() === "jooby") {
-      return true
-    }
-  }
-  return false
-}
-
-export async function splitDescription(text: string) {
-  if (text === "") {
-    return null
-  }
-  const sections = text.split("<p>Section</p>\n")
-  return sections
-}
 
 // export async function getImageDict(product: ProductPage) {
 //   let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
@@ -127,6 +111,23 @@ export default async function ProductTemplate({
   params: { handle: string };
 }) {
 
+
+ function checkJooby(tags: string[]) {
+  for (let i = 0; i < tags.length; ++i) {
+    if (tags[i].toLowerCase() === "jooby") {
+      return true
+    }
+  }
+  return false
+}
+
+ function splitDescription(text: string) {
+  if (text === "") {
+    return null
+  }
+  const sections = text.split("<p>Section</p>\n")
+  return sections
+}
   function getImageDict(product: ProductPage): any {
     let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
       const key: string | null = variant.node.title;
