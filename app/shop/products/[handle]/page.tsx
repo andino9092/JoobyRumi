@@ -32,6 +32,7 @@ const query = `query getProductByHandle($handle: String) {
           edges {
             node {
               id
+              quantityAvailable
               title
               price {
                 amount
@@ -57,6 +58,7 @@ interface Variant {
 interface ProductVariant {
   node: {
     id: string;
+    quantityAvailable: number;
     price: {
       amount: string;
     };
@@ -67,8 +69,6 @@ interface ProductVariant {
   };
 }
 
-
-
 interface ImageDict {
   [key: string]: {
     price: number,
@@ -76,6 +76,31 @@ interface ImageDict {
     productImages: string[];
   };
 }
+
+
+// export async function getImageDict(product: ProductPage) {
+//   let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
+//     const key: string | null = variant.node.title;
+//     if (key) {
+//         acc[key] = acc[key] || {
+//           price: variant.node.price.amount,
+//           variantId: variant.node.id,
+//           totalInventory: variant.node.quantityAvailable,
+//           productImages: []
+//         };
+//     }
+//     return acc;
+//   }, {});
+//   product.images.edges.reduce((acc: ImageDict, variant: Variant) => {
+//       const key: string | null = variant.node.altText;
+//       if (key) {
+//         acc[key].productImages.push(variant.node.url);
+//       } else {
+//         acc["Default Title"].productImages.push(variant.node.url);
+//       }
+//       return acc;
+//   }, prodict);
+// }
 
 // Changed to sync function because doesn't handle any async promises
 
@@ -86,30 +111,31 @@ export default async function ProductTemplate({
   params: { handle: string };
 }) {
 
-  function checkJooby(tags: string[]) {
-    for (let i = 0; i < tags.length; ++i) {
-      if (tags[i].toLowerCase() === "jooby") {
-        return true
-      }
-    }
-    return false
-  }
-  
-  function splitDescription(text: string) {
-    if (text === "") {
-      return null
-    }
-    const sections = text.split("<p>Section</p>\n")
-    return sections
-  }
 
+ function checkJooby(tags: string[]) {
+  for (let i = 0; i < tags.length; ++i) {
+    if (tags[i].toLowerCase() === "jooby") {
+      return true
+    }
+  }
+  return false
+}
+
+ function splitDescription(text: string) {
+  if (text === "") {
+    return null
+  }
+  const sections = text.split("<p>Section</p>\n")
+  return sections
+}
   function getImageDict(product: ProductPage): any {
-    let prodict = product.variants.edges.reduce((acc: ImageDict, variant: ProductVariant) => {
+    let prodict = product.variants.edges.reduce((acc: any, variant: any) => {
       const key: string | null = variant.node.title;
       if (key) {
           acc[key] = acc[key] || {
             price: variant.node.price.amount,
             variantId: variant.node.id,
+            totalInventory: variant.node.quantityAvailable,
             productImages: []
           };
       }
@@ -127,11 +153,10 @@ export default async function ProductTemplate({
   
     return prodict
   }
+
   const res = await getQuery(query, {
     handle: params.handle,
   });
-
-
 
   const product: ProductPage = res.data.product; 
   const prodict: any = await getImageDict(product)
@@ -144,7 +169,7 @@ export default async function ProductTemplate({
   }
 
   return (
-    <div className="w-screen h-screen bg-stone-100 text-stone-800">
+    <div className="w-screen h-fit bg-stone-100 text-stone-800">
       <Product
         prodict={prodict}
         product={product}
@@ -157,5 +182,3 @@ export default async function ProductTemplate({
     </div>
   );
 }
-
-
