@@ -2,12 +2,11 @@
 
 import { createContext, useEffect, useState } from "react";
 import {
-    CartContextType,
+  CartContextType,
   CartDisplay,
   ContextCountry,
 } from "../utils/interfaces";
 import CartSidebar from "./CartSidebar";
-
 
 export const CartContext = createContext<CartContextType>({
   cartLines: null,
@@ -25,17 +24,17 @@ export function CartProvider({ context, children }: any) {
   const [currCurrency, setCurrency] = useState<ContextCountry>(context.country);
   const currencyList = context.availableCountries;
 
-
   // Call this after each cart update
   const updateCartLines = async () => {
     const cartid = localStorage.getItem("cartid");
+    console.log(cartid)
 
     if (cartid != null) {
       const req = await fetch(`/api/getCart?cartId=${cartid}`, {
         method: "POST",
       }).then((res) => res.json());
+      console.log(req);
       setCartLines(req.res.data.cart);
-      console.log("updating cart");
     }
   };
 

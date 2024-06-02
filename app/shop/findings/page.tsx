@@ -40,7 +40,7 @@ export default async function Findings({}) {
       <div className="flex flex-col font-DMSerifDisplay text-joobyDark">
         <h1 className="ml-48 text-2xl mr-48 pt-8">Shop Findings</h1>
         <div className="flex gap-12 justify-center flex-row">
-          <ShoppingList items={products}></ShoppingList>
+          <ShoppingList items={products} handle={'findings'}></ShoppingList>
         </div>
       </div>
     </div>

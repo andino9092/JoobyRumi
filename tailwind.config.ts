@@ -11,7 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        DMSerifDisplay: ["DM Serif Display", 'serif']
+        DMSerifDisplay: ["DM Serif Display", 'serif'],
+        DMSans: ["DM Sans", 'sans-serif']
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
