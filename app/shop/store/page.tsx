@@ -7,45 +7,47 @@ import getQuery from "@/app/utils/serverUtils";
 import Link from "next/link";
 
 export default async function Store({}) {
-  const productsQuery = `query Products ($countryCode: CountryCode!) @inContext(country: $countryCode){
+  const productsQuery = `query getCollection($handle: String!, $countryCode: CountryCode!) @inContext(country: $countryCode) {
+    collection(handle: $handle){
         products(first:100){
           edges{
             node{
               title
-              priceRange{
-                minVariantPrice{
-                  amount
-                }
+          priceRange{
+            minVariantPrice{
+              amount
+            }
+          }
+          handle
+          images(first:10){
+            edges{
+              node{
+                url
+                altText
               }
-              handle
-              images(first:10){
-                edges{
-                  node{
-                    url
-                    altText
-                  }
-                }
-              }
-              totalInventory
-              tags
+            }
+          }
+          totalInventory
             }
           }
         }
-      }`;
+      }
+    }`;
+
 
   const res = await getQuery(productsQuery, { 
-    countryCode: "US" 
+    countryCode: "US",
+    handle: 'others'
   });
 
-  // console.log(res.data.products.edges[0].node.priceRange);
-  const products = res.data.products.edges;
+  const products = res.data.collection.products.edges;
 
   return (
     <div className="flex flex-col font-DMSerifDisplay text-joobyDark">
-      <h1 className="ml-48 text-2xl mr-48 pt-8">Shop All</h1>
+       <h1 className="text-3xl ml-4  lg:ml-40 lg:text-2xl lg:mr-48 pt-12">Shop Jooby</h1>
       <div className="flex gap-12 justify-center">
-        <ShoppingList items={products}></ShoppingList>
+        <ShoppingList items={products} handle='others'></ShoppingList>
       </div>
     </div>
   );
-}
+} 

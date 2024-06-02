@@ -48,10 +48,10 @@ export default async function Cart({}){
     const req = await getQuery(getCartQuery, { id: "gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSFhGOTVLS0FSMEVFNERQQlozWVRRS0cy" })
     const cart: CartDisplay = req.data.cart
 
-    console.log(cart);
-    for (let i = 0; i < cart.lines.edges.length; i++) {
-        console.log(cart.lines.edges[i].node)
-    }
+    // console.log(cart);
+    // for (let i = 0; i < cart.lines.edges.length; i++) {
+    //     console.log(cart.lines.edges[i].node)
+    // }
 
     return (
         <>

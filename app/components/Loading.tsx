@@ -11,10 +11,7 @@ interface LoadingProps{
 export default function Loading({className, width, height}: LoadingProps){
 
     return (
-        <div>
 
             <img alt='loadingImg' src='/loading.jpg' className={className}></img>
-
-        </div>
     )
 }
