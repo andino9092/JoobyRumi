@@ -17,48 +17,51 @@ export const metadata: Metadata = {
   },
 };
 
+export const currencyQuery = `query getLocalization($countryCode: CountryCode!) @inContext(country: $countryCode) {
+  localization {
+    availableCountries {
+      currency {
+        isoCode
+        name
+        symbol
+      }
+      isoCode
+      name
+      unitSystem
+    }
+    country {
+      currency {
+        isoCode
+        name
+        symbol
+      }
+      isoCode
+      name
+      unitSystem
+    }
+  }
+}`;
+
+const collectionsQuery = `query {
+  collections(first: 20) {
+    edges {
+      node {
+        handle
+        title
+      }
+    }
+  }
+}`
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currencyQuery = `query @inContext(country: US) {
-    localization {
-      availableCountries {
-        currency {
-          isoCode
-          name
-          symbol
-        }
-        isoCode
-        name
-        unitSystem
-      }
-      country {
-        currency {
-          isoCode
-          name
-          symbol
-        }
-        isoCode
-        name
-        unitSystem
-      }
-    }
-  }`;
 
-  const collectionsQuery = `query {
-    collections(first: 20) {
-      edges {
-        node {
-          handle
-          title
-        }
-      }
-    }
-  }`
-
-  const res = await getQuery(currencyQuery);
+  const res = await getQuery(currencyQuery, {
+    countryCode: 'JP',
+  });
 
   const collections = await getQuery(collectionsQuery)
 
@@ -78,7 +81,9 @@ export default async function RootLayout({
             {children}
           </div>
         </CartProvider>
-        <Footer></Footer>
+        <div className="hidden sm:block">
+          <Footer></Footer>
+        </div>
       </body>
     </html>
   );

@@ -86,7 +86,6 @@ export default function Navbar({
           </Link>
         </h1>
         
-        {width && width >= 600 && <CurrencyDropdown></CurrencyDropdown>}
 
         {/* 
           ========================
@@ -165,6 +164,7 @@ export default function Navbar({
          */}
 
         <div className="flex flex-row absolute right-0 pr-8">
+          {width && width >= 600 && <CurrencyDropdown></CurrencyDropdown>}
           {/* <div>
                         Search Bar not gonna implement yet harhar
                     </div>                     */}

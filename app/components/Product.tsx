@@ -35,6 +35,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
     setShowCart(true);
   }
 
+
   return (
     <div className="w-screen flex justify-center">
       <div className="flex flex-col max-w-[1600px] md:py-14 md:px-[70px] md:flex-row md:flex-wrap">

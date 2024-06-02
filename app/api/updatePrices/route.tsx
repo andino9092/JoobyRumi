@@ -4,32 +4,6 @@
 
 import { defaultHeaders, fetchURL } from "@/app/utils/serverUtils";
 
-const productsQuery = `query Products ($countryCode: CountryCode!) @inContext(country: $countryCode){
-    products(first:100){
-      edges{
-        node{
-          title
-          priceRange{
-            minVariantPrice{
-              amount
-            }
-          }
-          handle
-          images(first:10){
-            edges{
-              node{
-                url
-                altText
-              }
-            }
-          }
-          totalInventory
-          tags
-        }
-      }
-    }
-  }`;
-
   const joobyQuery = `query getCollection($handle: String!, $countryCode: CountryCode!) @inContext(country: $countryCode) {
     collection(handle: $handle){
         products(first:100){
