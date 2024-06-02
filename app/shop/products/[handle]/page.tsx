@@ -5,9 +5,10 @@ import { formatPrice } from "@/app/utils";
 import { split } from "postcss/lib/list";
 import { cookies } from "next/headers";
 import { secureHeapUsed } from "crypto";
+import { currencyQuery } from "@/app/layout";
 
 
-const query = `query getProductByHandle($handle: String) {
+const query = `query getProductByHandle($handle: String, $countryCode: CountryCode!) @inContext(country: $countryCode) {
     product(handle: $handle) {
         title
         priceRange{
@@ -154,8 +155,15 @@ export default async function ProductTemplate({
     return prodict
   }
 
+  const currency = await getQuery(currencyQuery, {
+    countryCode: 'JP',
+  });
+
+  console.log(currency);
+
   const res = await getQuery(query, {
     handle: params.handle,
+    countryCode: currency.extensions.context.country
   });
 
   const product: ProductPage = res.data.product; 

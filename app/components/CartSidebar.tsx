@@ -90,6 +90,10 @@ export default function CartSidebar(props: any) {
   const { cartLines, updateCartLines, showCart, setShowCart } =
     useContext(CartContext);
 
+
+
+  
+    
   useLayoutEffect(() => {
     const original = document.body.style.overflowY;
     if (showCart) {
@@ -110,7 +114,6 @@ export default function CartSidebar(props: any) {
     }
   };
 
-  console.log(props.cartLines);
   return (
     <>
       <AnimatePresence initial={false}>
@@ -170,13 +173,16 @@ export default function CartSidebar(props: any) {
                       />
                     );
                   })}
+                  {
+                    props.cartLines && console.log(props.cartLines.checkoutUrl)
+                  }
                 {props.cartLines && !inFlight && (
                   <motion.div variants={childVariants}>
                     <Link href={props.cartLines.checkoutUrl}>
                       <Button className="w-max px-8 py-5 group hover:bg-stone-200 ml-16 hover:text-joobyDark transition-all">
                         Checkout •
                         <span className="text-joobyWhite pl-2 group-hover:text-joobyDark font-bold">
-                          {formatPrice(cartLines.cost.totalAmount.amount)}
+                          {formatPrice(props.cartLines.cost.totalAmount.amount)}
                         </span>
                       </Button>
                     </Link>

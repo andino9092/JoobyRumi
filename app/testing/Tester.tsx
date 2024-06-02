@@ -1,6 +1,5 @@
 'use client'
 
-import Cart from "../cart/page"
 
 
 
