@@ -1,5 +1,5 @@
 import ShoppingList from "@/app/components/ShoppingList";
-import getQuery from "@/app/utils/serverUtils";
+import {getQuery} from "@/app/utils/serverUtils";
 
 export default async function Findings({}) {
   // const items = ["Jump Rings", "Tools", "String", "Charms"];

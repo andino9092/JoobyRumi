@@ -1,6 +1,6 @@
 import Product from "@/app/components/Product";
 import { ProductPage, ProductNode } from "@/app/utils/interfaces";
-import getQuery from "@/app/utils/serverUtils";
+import {getQuery} from "@/app/utils/serverUtils";
 import { formatPrice } from "@/app/utils";
 import ShoppingList from "@/app/components/ShoppingList";
 import DashboardFade from "@/app/components/DashboardFade";

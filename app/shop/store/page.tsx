@@ -3,7 +3,7 @@
 import ShopAll from "@/app/components/ShopAll";
 import ShoppingList from "@/app/components/ShoppingList";
 import { ProductDisplay } from "@/app/utils/interfaces";
-import getQuery from "@/app/utils/serverUtils";
+import {getQuery} from "@/app/utils/serverUtils";
 import Link from "next/link";
 
 export default async function Store({}) {

@@ -1,8 +1,11 @@
-import { defaultHeaders, fetchURL } from "@/app/utils/serverUtils";
+// reuse query but with a different address code. Sync with useUeffect
 
-const getCartQuery = `
-    query getCart($id: ID!, $countryCode: CountryCode!) @inContext(country: $countryCode){
-        cart(id: $id) {
+import { ProductPage } from "@/app/utils/interfaces";
+import { checkJooby, defaultHeaders, fetchURL, getImageDict, splitDescription } from "@/app/utils/serverUtils";
+
+const query = `mutation cartBuyerIdentityUpdate($cartId: ID!, $buyerIdentity: CartBuyerIdentityInput!) {
+    cartBuyerIdentityUpdate(cartId: $cartId, buyerIdentity: $buyerIdentity) {
+        cart{
             id
             checkoutUrl
             lines(first: 10) {
@@ -12,7 +15,6 @@ const getCartQuery = `
                     quantity
                     merchandise {
                     ... on ProductVariant {
-                        quantityAvailable
                         id
                         title
                         product {
@@ -38,28 +40,38 @@ const getCartQuery = `
                 }
             }
             }
+        userErrors {
+            field
+            message
         }
-    `;
+    }
+}`
 
 export async function POST(request: Request) {
   const urlParts = request.url.split("?");
   const queryParams = new URLSearchParams(urlParts.slice(1).join("?"));
-  const cartId = queryParams.get("cartId");
   const countryCode = queryParams.get("countryCode");
-  console.log(queryParams);
+  const cartId = queryParams.get("cartId");
+
+//   console.log(queryParams);
+
   const res = await fetch(fetchURL, {
     method: "POST",
     headers: defaultHeaders,
     body: JSON.stringify({
-      query: getCartQuery,
+      query: query,
       variables: {
-        id: cartId,
-        countryCode: countryCode,
+        buyerIdentity: {
+            countryCode: countryCode,
+        },
+        cartId: cartId,
       },
     }),
-  }).then((res) => res.json());
+  }).then((data) => data.json());
 
-  console.log(res.data.cart.lines.edges[0].node.merchandise.price)
+  const data = res.data.cartBuyerIdentityUpdate.cart
+//   console.log(res);
 
-  return Response.json({ res });
+
+  return Response.json({data});
 }

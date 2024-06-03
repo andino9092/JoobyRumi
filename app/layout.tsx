@@ -5,7 +5,7 @@ import { CartProvider } from "./components/CartProvider";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import DashboardFade from "./components/DashboardFade";
-import getQuery from "./utils/serverUtils";
+import {getQuery} from "./utils/serverUtils";
 
 const inter = Inter({ subsets: ["latin"] });
 

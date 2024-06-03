@@ -40,11 +40,11 @@ export default function ShoppingList({ items, handle }: ShoppingListProps) {
 
   const [data, setData] = useState<any[]>(items)
   const [inFlight, setInFlight] = useState<boolean>(false);
-  console.log(items[0]);
+  // console.log(items[0]);
 
   useEffect(() => {
     const updateItems = async () => {
-      console.log(currCurrency)
+      // console.log(currCurrency)
       setInFlight(true);
       const req = await fetch( 
         `/api/updatePrices?countryCode=${currCurrency.isoCode}&handle=${handle}`,
@@ -53,7 +53,7 @@ export default function ShoppingList({ items, handle }: ShoppingListProps) {
         }
       ).then((res) => res.json());
       setInFlight(false);
-      console.log(req.data.data.collection.products.edges);
+      // console.log(req.data.data.collection.products.edges);
       setData(req.data.data.collection.products.edges)
     }
     if (currCurrency){
@@ -61,14 +61,14 @@ export default function ShoppingList({ items, handle }: ShoppingListProps) {
     }
   }, [currCurrency])
 
-  console.log(currCurrency);
+  // console.log(currCurrency);
   return (
-    <div className="sm:ml-28 flex justify-center min-h-screen">
+    <div className="flex justify-center min-h-screen">
       <motion.div
         initial="hidden"
         animate="visible"
         variants={parent}
-        className="flex flex-row w-11/12 sm:w-[90vw] flex-wrap gap-x-5 h-max gap-y-10 justify-start py-4"
+        className="flex flex-row w-[85vw] sm:w-[92vw] flex-wrap gap-x-[5vw] sm:gap-x-[4vw] h-max gap-y-[5vh] justify-start py-4"
       >
         {inFlight && <div>
           LOADING</div>}
@@ -87,9 +87,9 @@ export default function ShoppingList({ items, handle }: ShoppingListProps) {
             <Link key={i} href={`/shop/products/${item.node.handle}`}>
               <motion.div variants={children}>
                 <Category {...imgProps}>
-                  <div>{item.node.title}</div>
-                  <div className="font-DMSans">
-                    {currCurrency.currency.symbol} {item.node.priceRange.minVariantPrice.amount}
+                  <div className="text-sm">{item.node.title}</div>
+                  <div className="font-DMSans text-xs sm:text-base ">
+                    {formatPrice(item.node.priceRange.minVariantPrice.amount, currCurrency.currency.isoCode)}
                     {/* {formatPrice(item.node.priceRange.minVariantPrice.amount)} USD */}
                   </div>
                 </Category>

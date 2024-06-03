@@ -36,7 +36,7 @@ export async function POST(request: Request){
   const queryParams = new URLSearchParams(urlParts.slice(1).join('?'));
   const countryCode = queryParams.get('countryCode')
   const handle = queryParams.get('handle')
-  console.log(queryParams)
+  // console.log(queryParams)
 
   const res = await fetch(fetchURL, {
       method: 'POST',
@@ -50,6 +50,6 @@ export async function POST(request: Request){
       }),
   })
   const data = await res.json()
-  console.log(data);
+  // console.log(data);
   return Response.json({ data });
 }

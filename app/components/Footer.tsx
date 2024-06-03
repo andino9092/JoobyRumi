@@ -7,15 +7,25 @@ import Link from "next/link";
 export default function Footer({}) {
   return (
     <DashboardFade className="w-screen h-[200px] bg-joobyDarkPink flex justify-center items-center text-9xl">
-      <div className="flex flex-row bottom-0 h-[150px] font-DMSerifDisplay text-xl text-joobyWhite bg-joobyDarkPink w-full">
-        <div className="flex flex-col gap-6 ml-4 justify-center">
-          <Link href={'/contact'}>Contact</Link>
-
+      <div className="flex flex-row bottom-0 h-[150px] font-DMSerifDisplay text-lg  text-joobyWhite bg-joobyDarkPink w-full">
+        <div className="flex flex-col gap-6 ml-[5vw] justify-center">
+          <Link
+            className="hover:underline hover:text-joobyDark transition-all"
+            href={"/contact"}
+          >
+            Contact
+          </Link>
+          <Link
+            className="hover:underline hover:text-joobyDark transition-all"
+            href={"/"}
+          >
+            FAQ
+          </Link>
         </div>
         <div className="flex flex-grow relative gap-4 mr-12 items-center justify-end">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8 hover:fill-joobyDark transition-all"
+            className="h-5 w-5 hover:fill-joobyDark transition-all"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -24,7 +34,7 @@ export default function Footer({}) {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
-            className="h-8 w-8 group/tiktok"
+            className="h-5 w-5 group/tiktok"
           >
             {/* <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --> */}
             <path

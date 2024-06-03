@@ -6,6 +6,7 @@ import { useState, useContext, useEffect } from "react";
 import { CartContext } from "../components/CartProvider";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { formatPrice } from "../utils";
 
 // Prevent from sending multiple requests to api route
 export default function CartItem({
@@ -21,7 +22,7 @@ export default function CartItem({
   cartid: string | null;
   className?: string;
 }) {
-  const { cartLines, updateCartLines, showCart, setShowCart } =
+  const {currCurrency, cartLines, updateCartLines, showCart, setShowCart } =
     useContext(CartContext);
   // const [totalAmount, setTotalAmount] = useState(line.quantity)
   const totalInventory: number = Number(
@@ -45,7 +46,7 @@ export default function CartItem({
     ).then((res) => res.json());
     await updateCartLines();
     setInFlight(false);
-    console.log(req);
+    // console.log(req);
   }
 
   async function decrement(
@@ -62,7 +63,7 @@ export default function CartItem({
     ).then((res) => res.json());
     await updateCartLines();
     setInFlight(false);
-    console.log(req);
+    // console.log(req);
   }
 
   async function remove(nodeid: string) {
@@ -75,13 +76,16 @@ export default function CartItem({
     ).then((res) => res.json());
     await updateCartLines();
     setInFlight(false);
-    console.log(req);
+    // console.log(req);
   }
 
   //   console.log(line)
 
   return (
-    <motion.div variants={variants} className="relative flex flex-row py-4 items-center">
+    <motion.div
+      variants={variants}
+      className="relative flex flex-row py-4 items-center"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -112,34 +116,42 @@ export default function CartItem({
           height={150}
         ></Image>
       </Link>
-      <p>
+      <div className="flex flex-col gap-1">
         <Link
           onClick={() => setShowCart(false)}
           className="font-bold text-joobyDark"
           href={`/shop/products/${line.merchandise.product.handle}`}
         >
-          {line.merchandise.product.title} •{" "}
-          <span className="text-stone-300 font-normal">
-            {line.merchandise.title}
-          </span>
+          {line.merchandise.product.title}
         </Link>
-      </p>
-      <p className="absolute right-4 top-4 divide-x-2 border-2 flex items-center">
-        <CartButton
-          onClick={() => decrement(line.id, line.quantity, line.merchandise.id)}
-          disabled={line.quantity <= 0}
-        >
-          <span>-</span>
-        </CartButton>
-        <span className="px-2">{line.quantity}</span>
+        <div className="text-sm text-stone-400"> 
+          {line.merchandise.title}
 
-        <CartButton
-          onClick={() => increment(line.id, line.quantity, line.merchandise.id)}
-          disabled={line.quantity >= totalInventory}
-        >
-          <span>+</span>
-        </CartButton>
-      </p>
+        </div>
+        <div>
+
+        {formatPrice(Number(line.merchandise.price.amount), currCurrency.currency.isoCode)}
+        </div>
+      </div>
+      <div className="absolute right-0">
+        <div className="divide-x-2 border-2 flex items-center">
+          <CartButton
+            onClick={() => decrement(line.id, line.quantity, line.merchandise.id)}
+            disabled={line.quantity <= 0}
+          >
+            <span>-</span>
+          </CartButton>
+          <span className="px-2">{line.quantity}</span>
+
+          <CartButton
+            onClick={() => increment(line.id, line.quantity, line.merchandise.id)}
+            disabled={line.quantity >= totalInventory}
+          >
+            <span>+</span>
+          </CartButton>
+        </div>
+
+      </div>
     </motion.div>
   );
 }

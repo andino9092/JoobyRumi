@@ -1,7 +1,7 @@
-export function formatPrice(number: number){
+export function formatPrice(number: number, currencyCode: string){
   return Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: currencyCode,
       minimumFractionDigits: 2,
   }).format(number)
 }

@@ -133,7 +133,7 @@ export interface CartContextType {
   showCart: boolean;
   setShowCart: (arg: boolean) => void;
   currencyList: ContextCountry[];
-  currCurrency: any;
+  currCurrency: ContextCountry;
   setCurrency: (arg: any) => void;
 }
 
@@ -177,4 +177,33 @@ export interface StaggeredCarouselProps{
    href: string,
    label: ReactNode | string, 
   }[]
+}
+
+export interface Variant {
+  node: {
+    altText: string | null;
+    url: string;
+  };
+}
+
+export interface ProductVariant {
+  node: {
+    id: string;
+    quantityAvailable: number;
+    price: {
+      amount: string;
+    };
+    image: {
+      url: string;
+    };
+    title: string;
+  };
+}
+
+export interface ImageDict {
+  [key: string]: {
+    price: number,
+    variantId: string;
+    productImages: string[];
+  };
 }

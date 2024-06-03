@@ -1,6 +1,6 @@
 import Product from "@/app/components/Product";
 import { ProductPage, ProductNode } from "@/app/utils/interfaces";
-import getQuery from "@/app/utils/serverUtils";
+import {checkJooby, getImageDict, getQuery, splitDescription} from "@/app/utils/serverUtils";
 import { formatPrice } from "@/app/utils";
 import { split } from "postcss/lib/list";
 import { cookies } from "next/headers";
@@ -49,34 +49,7 @@ const query = `query getProductByHandle($handle: String, $countryCode: CountryCo
   }
   `;
 
-interface Variant {
-  node: {
-    altText: string | null;
-    url: string;
-  };
-}
 
-interface ProductVariant {
-  node: {
-    id: string;
-    quantityAvailable: number;
-    price: {
-      amount: string;
-    };
-    image: {
-      url: string;
-    };
-    title: string;
-  };
-}
-
-interface ImageDict {
-  [key: string]: {
-    price: number,
-    variantId: string;
-    productImages: string[];
-  };
-}
 
 
 // export async function getImageDict(product: ProductPage) {
@@ -113,53 +86,10 @@ export default async function ProductTemplate({
 }) {
 
 
- function checkJooby(tags: string[]) {
-  for (let i = 0; i < tags.length; ++i) {
-    if (tags[i].toLowerCase() === "jooby") {
-      return true
-    }
-  }
-  return false
-}
-
- function splitDescription(text: string) {
-  if (text === "") {
-    return null
-  }
-  const sections = text.split("<p>Section</p>\n")
-  return sections
-}
-  function getImageDict(product: ProductPage): any {
-    let prodict = product.variants.edges.reduce((acc: any, variant: any) => {
-      const key: string | null = variant.node.title;
-      if (key) {
-          acc[key] = acc[key] || {
-            price: variant.node.price.amount,
-            variantId: variant.node.id,
-            totalInventory: variant.node.quantityAvailable,
-            productImages: []
-          };
-      }
-      return acc;
-    }, {});
-    product.images.edges.reduce((acc: ImageDict, variant: Variant) => {
-        const key: string | null = variant.node.altText;
-        if (key) {
-          acc[key].productImages.push(variant.node.url);
-        } else {
-          acc["Default Title"].productImages.push(variant.node.url);
-        }
-        return acc;
-    }, prodict);
-  
-    return prodict
-  }
-
   const currency = await getQuery(currencyQuery, {
     countryCode: 'JP',
   });
 
-  console.log(currency);
 
   const res = await getQuery(query, {
     handle: params.handle,

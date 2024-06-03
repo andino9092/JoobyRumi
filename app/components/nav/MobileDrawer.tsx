@@ -103,7 +103,7 @@ function DrawerItem({
     // Edit tap colors after
     <motion.div
       onClick={onClick}
-      className="text-xl mx-3 px-3 my-6 py-2 items-center flex justify-start"
+      className="text-base mx-3 px-3 my-6 py-2 items-center flex justify-start"
       whileTap="tap"
       variants={itemVariant}
     >
@@ -167,7 +167,7 @@ export default function MobileDrawer({
             {currLayer == 1 && (
               <motion.div
                 onClick={() => setLayer(0)}
-                className="flex ml-12 pt-6 flex-row text-sm"
+                className="flex ml-12 pt-6 flex-row text-xs"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +188,7 @@ export default function MobileDrawer({
             {currLayer == 2 && (
               <motion.div
                 onClick={() => setLayer(0)}
-                className="flex ml-12 pt-6 flex-row text-sm"
+                className="flex ml-12 pt-6 flex-row text-xs"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -259,7 +259,7 @@ export default function MobileDrawer({
                 if (item.node.handle == "jooby") {
                   return;
                 }
-                console.log(item.node);
+                // console.log(item.node);
                 return (
                   <Link
                     key={i}
@@ -285,7 +285,7 @@ export default function MobileDrawer({
         )}
         <motion.div
           variants={itemsVariants}
-          className="fixed flex flex-row bottom-0 h-[150px] font-DMSerifDisplay text-xl text-joobyWhite bg-joobyDarkPink w-full"
+          className="fixed flex flex-row bottom-0 h-[150px] font-DMSerifDisplay text-base text-joobyWhite bg-joobyDarkPink w-full"
         >
           <div className="flex flex-col gap-6 ml-4 justify-center">
             <motion.div variants={itemVariant}>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import getQuery from "../utils/serverUtils";
+import {getQuery} from "../utils/serverUtils";
 import { ProductDisplay } from "../utils/interfaces";
 import Button from "../components/Button";
 import Tester from "./Tester";

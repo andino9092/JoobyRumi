@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
 import { CartContext } from "./CartProvider";
 import Accordion from "./Accordion";
@@ -8,13 +8,34 @@ import { formatPrice } from "../utils";
 import Image from "next/image";
 
 export default function Product({prodict, product, hasVariants, isJooby, description, whatsIncluded, skillLevel}: any) {
-  const {updateCartLines, setShowCart} = useContext(CartContext)
-  const [price, setPrice] = useState(0)
+  const {currCurrency, cartLines, updateCartLines, showCart, setShowCart} = useContext(CartContext)
   const [quantity, setQuantity] = useState(1)
+
+  const [newProdict, setProdict] = useState(prodict)
+  const [newProduct, setProduct] = useState(product)
+
+  // const [price, setPrice] = useState<string>(product)
   const [currVariant, setCurrVariant] = useState({
     "title": product.variants.edges[0].node.title,
     "full_image": prodict[product.variants.edges[0].node.title].productImages[0]
   })
+
+  useEffect(() => {
+    const updateItems = async () => {
+
+      const req = await fetch( 
+        `/api/updateProduct?countryCode=${currCurrency.isoCode}&handle=${product.handle}`,
+        {
+          method: "POST",
+        }
+      ).then((res) => res.json());
+      setProdict(req.prodict)
+      setProduct(req.product);
+    }
+    if (currCurrency){
+      updateItems()
+    }
+  }, [currCurrency])
 
   const addProduct = async(variantId: string) => {
     let cartid = localStorage.getItem("cartid");
@@ -27,7 +48,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
       const req = await fetch(`/api/createCart?merchandiseId=${variantId}&quantity=${quantity}`, {
         method: "POST",
       }).then((res) => res.json());
-      console.log('here' +  req)
+      // console.log('here' +  req)
       localStorage.setItem("cartid", req.data.cartCreate.cart.id)
     }
 
@@ -41,7 +62,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
     <div className="w-screen flex justify-center">
       <div className="flex flex-col max-w-[1600px] md:py-14 md:px-[70px] md:flex-row">
         <div className="md:w-7/12 md:h-fit md:flex md:flex-col md:order-1">
-          <div className="flex flex-col flex-col-reverse md:flex-row md:w-full">
+          <div className="flex flex-col-reverse md:flex-row md:w-full">
             {/* <div className="hidden md:block">
               {prodict[currVariant.title].productImages.map((item: any, i: number) => {
                 return (
@@ -52,7 +73,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
               })}
             </div> */}
             <div className="flex flex-row justify-center mt-3 md:flex-col md:justify-start md:mt-0 md:w-[14.285%]">
-              {prodict[currVariant.title].productImages.map((item: any, i: number) => {
+              {newProdict[currVariant.title].productImages.map((item: any, i: number) => {
                 return (
                   <button className="mr-2 md:mr-0 md:mb-3 md:w-full" key={i}>
                     <Image alt='product' key={item} className="pointer-events-none rounded-xl border-2 border-joobyDark md:border-0 md:w-full md:object-cover md:object-center" src={item} onClick={() => {setCurrVariant(prev => ({...prev, "full_image": item}))}} width={80} height={80}></Image>
@@ -93,8 +114,8 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
         
         <div className="flex flex-col order-2 w-full px-[20px] md:w-5/12 md:px-10 lg:px-14">
           <div className="md:order-1">
-            <p className="font-DMSerifDisplay font-black text-5xl text-joobyDark mt-5 md:mt-[0px]">{product.title}</p>
-            <p className="font-medium text-2xl text-joobyDark pt-2 pb-7 font-DMSerifDisplay">{formatPrice(prodict[currVariant.title].price)}</p>
+            <p className="font-DMSerifDisplay font-black text-5xl text-joobyDark mt-5 md:mt-[0px]">{newProduct.title}</p>
+            <p className="font-medium text-2xl text-joobyDark pt-2 pb-7 font-DMSerifDisplay">{formatPrice(newProdict[currVariant.title].price, currCurrency.currency.isoCode)}</p>
           </div>
 
           <div className="md:order-3">
@@ -104,8 +125,8 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
                   <p className="font-bold font-DMSans text-xl text-joobyDark">Color:</p>
                   <p className="font-light font-DMSans ml-2 text-xl text-joobyDark">{currVariant.title}</p>
                 </div>
-                <div className="pt-1 pb-3 flex flex-row flex flex-row overflow-x-auto no-scrollbar">
-                  {product.variants.edges.map((item: any, i: number) => {
+                <div className="pt-1 pb-3 flex flex-row overflow-x-auto no-scrollbar">
+                  {newProduct.variants.edges.map((item: any, i: number) => {
                     return (
                       <button 
                         key={i}
@@ -113,7 +134,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
                         onClick={() => {
                           setCurrVariant({
                             "title": item.node.title,
-                            "full_image": prodict[item.node.title].productImages[0]
+                            "full_image": newProdict[item.node.title].productImages[0]
                           })
                           setQuantity(1)
                         }}>
@@ -136,13 +157,13 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
                   <span className="px-2 mx-3 pt-1 text-2xl text-joobyDark w-10 text-center font-DMSans">{quantity}</span>
                 <CartButton
                   onClick={() => (setQuantity((prev: any) => (prev +  1)))}
-                  disabled={quantity >= prodict[currVariant.title].totalInventory}
+                  disabled={quantity >= newProdict[currVariant.title].totalInventory}
                 >
                   <span className="text-3xl text-joobyDark font-DMSans">+</span>
                 </CartButton>
               </div>
             </div>
-            <Button className={"w-full hover:bg-joobyDark transition-all ease-in-out mb-8 font-DMSerifDisplay font-bold"} onClick={() => addProduct(prodict[currVariant.title].variantId)}> Add to cart </Button>
+            <Button className={"w-full hover:bg-joobyDark transition-all ease-in-out mb-8"} onClick={() => addProduct(newProdict[currVariant.title].variantId)}> ADD TO CART </Button>
           </div>
 
           <div className="mb-5 md:order-2 font-DMSans">
