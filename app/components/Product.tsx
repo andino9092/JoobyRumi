@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Button from "./Button";
 import { CartContext } from "./CartProvider";
 import Accordion from "./Accordion";
@@ -8,7 +8,8 @@ import { formatPrice } from "../utils";
 import Image from "next/image";
 
 export default function Product({prodict, product, hasVariants, isJooby, description, whatsIncluded, skillLevel}: any) {
-  const {cartLines, updateCartLines, showCart, setShowCart} = useContext(CartContext)
+  const {updateCartLines, setShowCart} = useContext(CartContext)
+  const [price, setPrice] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [currVariant, setCurrVariant] = useState({
     "title": product.variants.edges[0].node.title,
@@ -19,11 +20,11 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
     let cartid = localStorage.getItem("cartid");
 
     if (cartid != null){
-      const req = await fetch(`/api/addLine?cartId=${cartid}&merchandiseId=${variantId}&quantity=${1}`, {
+      const req = await fetch(`/api/addLine?cartId=${cartid}&merchandiseId=${variantId}&quantity=${quantity}`, {
         method: "POST",
       }).then((res) => res.json());
     } else {
-      const req = await fetch(`/api/createCart?merchandiseId=${variantId}&quantity=${1}`, {
+      const req = await fetch(`/api/createCart?merchandiseId=${variantId}&quantity=${quantity}`, {
         method: "POST",
       }).then((res) => res.json());
       console.log('here' +  req)
@@ -38,7 +39,7 @@ export default function Product({prodict, product, hasVariants, isJooby, descrip
 
   return (
     <div className="w-screen flex justify-center">
-      <div className="flex flex-col max-w-[1600px] md:py-14 md:px-[70px] md:flex-row md:flex-wrap">
+      <div className="flex flex-col max-w-[1600px] md:py-14 md:px-[70px] md:flex-row">
         <div className="md:w-7/12 md:h-fit md:flex md:flex-col md:order-1">
           <div className="flex flex-col flex-col-reverse md:flex-row md:w-full">
             {/* <div className="hidden md:block">

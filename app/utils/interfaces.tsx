@@ -110,6 +110,7 @@ export interface CartLine {
   id: string;
   quantity: number;
   merchandise: {
+    quantityAvailable: number,
     id: string;
     title: string;
     product: {

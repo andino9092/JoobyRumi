@@ -12,6 +12,7 @@ const getCartQuery = `
                     quantity
                     merchandise {
                     ... on ProductVariant {
+                        quantityAvailable
                         id
                         title
                         product {

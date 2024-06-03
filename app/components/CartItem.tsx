@@ -25,7 +25,7 @@ export default function CartItem({
     useContext(CartContext);
   // const [totalAmount, setTotalAmount] = useState(line.quantity)
   const totalInventory: number = Number(
-    line.merchandise.product.totalInventory
+    line.merchandise.quantityAvailable
   );
 
   // const cartid = localStorage.getItem("cartid")
