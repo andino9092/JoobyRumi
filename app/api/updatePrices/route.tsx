@@ -6,6 +6,7 @@ import { defaultHeaders, fetchURL } from "@/app/utils/serverUtils";
 
   const joobyQuery = `query getCollection($handle: String!, $countryCode: CountryCode!) @inContext(country: $countryCode) {
     collection(handle: $handle){
+      title
         products(first:100){
           edges{
             node{

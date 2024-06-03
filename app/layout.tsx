@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import DashboardFade from "./components/DashboardFade";
 import {getQuery} from "./utils/serverUtils";
+import { Analytics } from "@vercel/analytics/react"
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -84,6 +86,7 @@ export default async function RootLayout({
         <div className="hidden sm:block">
           <Footer></Footer>
         </div>
+        <Analytics></Analytics>
       </body>
     </html>
   );

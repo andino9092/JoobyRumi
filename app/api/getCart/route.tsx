@@ -59,7 +59,5 @@ export async function POST(request: Request) {
     }),
   }).then((res) => res.json());
 
-  console.log(res.data.cart.lines.edges[0].node.merchandise.price)
-
   return Response.json({ res });
 }
