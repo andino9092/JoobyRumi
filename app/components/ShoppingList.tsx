@@ -85,7 +85,7 @@ export default function ShoppingList({ items, handle }: ShoppingListProps) {
 
           return (
             <Link key={i} href={`/shop/products/${item.node.handle}`}>
-              <motion.div variants={children}>
+              <motion.div className="h-full" variants={children}>
                 <Category {...imgProps}>
                   <div className="text-sm">{item.node.title}</div>
                   <div className="font-DMSans text-xs sm:text-base ">

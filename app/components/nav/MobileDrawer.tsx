@@ -285,7 +285,7 @@ export default function MobileDrawer({
         )}
         <motion.div
           variants={itemsVariants}
-          className="fixed flex flex-row bottom-0 h-[150px] font-DMSerifDisplay text-base text-joobyWhite bg-joobyDarkPink w-full"
+          className="fixed flex flex-row bottom-0 h-[125px] font-DMSerifDisplay text-base text-joobyWhite bg-joobyDarkPink w-full"
         >
           <div className="flex flex-col gap-6 ml-4 justify-center">
             <motion.div variants={itemVariant}>

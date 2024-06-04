@@ -124,8 +124,8 @@ export default function CartItem({
         >
           {line.merchandise.product.title}
         </Link>
-        <div className="text-sm text-stone-400"> 
-          {line.merchandise.title}
+        <div className="text-sm text-stone-400 min-h-[20px]"> 
+          {line.merchandise.title == 'Default Title' ? <></>: line.merchandise.title}
 
         </div>
         <div>

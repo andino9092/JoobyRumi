@@ -15,14 +15,14 @@ export default function Category({
   children,
   imgSrc,
   hoverSrc,
-  labelClassName = "bg-white w-[40vw] sm:w-[20vw] h-auto py-3 px-5",
+  labelClassName = "bg-white flex-grow w-[40vw] h-max sm:w-[20vw] py-3 px-5",
 }: CategoryProps) {
   const [hover, setHover] = useState<boolean>(false);
 
 
   return (
     <div
-      className="flex-grow w-[40vw] sm:w-[20vw] rounded-xl sm:overflow-hidden h-auto hover:cursor-pointer border-stone-200  shadow-[3px_2px_30px_-20px_rgba(0,0,0,0.3)]"
+      className="flex-grow flex flex-col w-[40vw] sm:w-[20vw] h-full rounded-xl sm:overflow-hidden hover:cursor-pointer border-stone-200  shadow-[3px_2px_30px_-20px_rgba(0,0,0,0.3)]"
       onMouseEnter={() => {
         
         

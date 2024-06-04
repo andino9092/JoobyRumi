@@ -44,7 +44,7 @@ export default async function ProductTemplate({
 
   //   console.log(res.data.collection.products.edges)
   const products = res.data.collection.products.edges;
-  console.log(res.data.collection);
+  // console.log(res.data.collection);
   return (
     <div className="flex flex-col font-DMSerifDisplay text-joobyDark">
       <DashboardFade>

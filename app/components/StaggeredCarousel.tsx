@@ -55,10 +55,10 @@ export default function StaggeredCarousel({
       variants={parent}
       className="flex flex-col sm:gap-4 sm:pt-4"
     >
-      <motion.h1 variants={child} className="ml-4 mt-4 sm:ml-20 text-start text-2xl">
+      <motion.h1 variants={child} className="ml-[4vw] mt-4 sm:ml-[5vw] text-start text-2xl">
         {heading}
       </motion.h1>
-      <motion.div className="flex w-screen overflow-x-scroll px-4 gap-12 py-8 sm:justify-center flex-row">
+      <motion.div className="flex w-screen overflow-x-scroll px-4 gap-[2vw] sm:gap-[4vw] py-8 sm:justify-center flex-row">
         {children.map((item, i) => {
           return (
             <motion.div key={i} variants={child}>

@@ -4,6 +4,7 @@ import { ProductDisplay } from "../utils/interfaces";
 import Button from "../components/Button";
 import Tester from "./Tester";
 
+
 const productsQuery = `query Products {
       products(first:100){
         edges{
@@ -38,6 +39,7 @@ export default async function Testing({}) {
   if (typeof window == 'undefined'){
     console.log('server component')
   }
+
 
   return (
     <div className="w-screen h-screen flex flex-row justify-center bg-stone-100 text-stone-800">

@@ -134,7 +134,7 @@ export default function CartSidebar(props: any) {
               id="cart"
               className={` text-stone-800 bg-joobyWhite h-screen absolute right-0`}
             >
-              <motion.h1 variants={childVariants} className="font-sans text-2xl ml-8 py-4 sm:py-10 text-joobyDark relative items-center flex">
+              <motion.h1 variants={childVariants} className="font-sans text-xl ml-8 py-4 sm:py-10 text-joobyDark relative items-center flex">
                 CART • {props.cartLines && props.cartLines.lines.edges.length != 0 ? props.cartLines.lines.edges.length : "0"}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ export default function CartSidebar(props: any) {
               </>
               )
               :
-              (<motion.div variants={childVariants} className="w-screen sm:absolute sm:block sm:w-auto sm:left-32 sm:top-80 h-auto min-h-[300px] flex justify-center items-center text-joobyDark text-2xl">
+              (<motion.div variants={childVariants} className="w-screen sm:absolute sm:block sm:w-auto sm:left-32 sm:top-80 h-auto min-h-[300px] flex justify-center items-center text-joobyDark text-xl">
                 YOUR CART IS EMPTY
               </motion.div>)}
             </motion.div>
